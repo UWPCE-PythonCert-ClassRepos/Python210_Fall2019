@@ -6,10 +6,12 @@ def fibonacci(n):
     fib_list = [0, 1]
     fib_a = 0
     fib_b = 1
-    for i in range(n + 1):
-        fib = fib_a + fib_b
-        fib_list.append(fib)
-        fib_a = fib_b
-        fib_b = fib
-    return fib_list
+    if n == 0 or n == 1:
+        return fib_list[n]
+    else:
+        for i in range(n + 1):
+            fib = fib_a + fib_b
+            fib_a = fib_b
+            fib_b = fib
+        return fib
 
