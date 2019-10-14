@@ -6,17 +6,18 @@ Return True if it is possible to make the goal by choosing from the given bricks
 
 
 def make_bricks(small, big, goal):
-  if small >= 5:
-    goal = goal - small
-    if goal <= big *5:
-      return True
-    else:
-      return False
+    if small >= 5:
+        goal = goal - small
 
-  else:
-    if (goal % 5 > small):
-      return False
-    elif (goal/5 > big) and (small < 5):
-      return False
+        if goal <= big *5:
+            return True
+        else:
+            return False
+
     else:
-      return True
+        if (goal % 5 > small):
+            return False
+        elif (goal/5 > big) and (small < 5):
+            return False
+        else:
+            return True
