@@ -17,9 +17,10 @@ BAR = '|'
 def grid_function_1():
     """Print a 2x2 square grid."""
     grid = range(11)    
-
+    
     for i in grid:
         if i % 5 == 0:
+            # print the + and - part of grid
             for x in grid:
                 if x % 5 == 0:
                     print(PLUS, end=' ')
@@ -27,6 +28,7 @@ def grid_function_1():
                     print(MIN, end=' ')
             print('\n', end='')
         else:
+            # print the | and space part of grid
             for y in grid:
                 if y % 5 == 0:
                     print(BAR, end=' ')
@@ -52,6 +54,7 @@ def print_grid(n):
     
     for i in grid:
         if i % divisor == 0:
+            # print the + and - part of grid
             for x in grid:
                 if x % divisor == 0:
                     print(PLUS, end=' ')
@@ -59,6 +62,7 @@ def print_grid(n):
                     print(MIN, end=' ')
             print('\n', end='')
         else:
+            # print the | and space part of grid
             for y in grid:
                 if y % divisor == 0:
                     print(BAR, end=' ')
@@ -80,6 +84,7 @@ def print_grid2(cells=3, size=3):
     
     for i in grid:
         if i % (size + 1) == 0:
+            # print the + and - part of grid
             for x in grid:
                 if x % (size + 1) == 0:
                     print(PLUS, end=' ')
@@ -87,6 +92,7 @@ def print_grid2(cells=3, size=3):
                     print(MIN, end=' ')
             print('\n', end='')
         else:
+            # print the | and space part of grid
             for y in grid:
                 if y % (size + 1) == 0:
                     print(BAR, end=' ')
