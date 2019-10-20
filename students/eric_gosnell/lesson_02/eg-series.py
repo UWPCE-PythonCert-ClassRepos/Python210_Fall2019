@@ -14,7 +14,7 @@ def fibonacci(n):
 
 def lucas(n):
     """Compute the nth value of the Lucas sequence."""
-    return sum_series(n, a=2, b=1)
+    return sum_series(n, 2, 1)
 
 
 def sum_series(n, a=0, b=1):
@@ -24,10 +24,10 @@ def sum_series(n, a=0, b=1):
     Other values are generic mathematical summation series."""
 
     if a == 0 and b == 1:  # Fibonacci
-        if n == 0:
-            return 0
-        elif n == 1:
-            return 1
+        if n < 2:
+            return n
+        else:
+            pass
     else:
         if n == 0:
             return a
