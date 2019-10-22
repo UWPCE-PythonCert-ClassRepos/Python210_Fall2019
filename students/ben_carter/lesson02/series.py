@@ -15,3 +15,11 @@ def fibonacci(n):
         return 1
     else:     """if n is not 0 or 1 than process through the fibonacci equation"""
         return fibonacci(n-2) + fibonacci(n-1)
+    
+def lucas(n):
+    if n == 0:  """if the var n is zero retur a 2 and exit the function"""
+        return 2
+    elif n == 1:   """if the var n is 1 retur a 1 and exit the function"""
+        return 1
+    else:
+        return lucas(n-2) + lucas(n-1)
