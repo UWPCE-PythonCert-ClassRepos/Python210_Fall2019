@@ -3,28 +3,22 @@
 
 def fibonacci(n):
     """fibonacci n value"""
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fibonacci(n - 1) + fibonacci(n - 2)
+    return fibonacci(n)
 
 
 def lucas(n):
     """lucas nth value"""
+    return lucas(n, 2, 1)
+
+
+def sum_series(n, a=0, b=1):
     if n == 0:
-        return 2
+        return a
     elif n == 1:
-        return 1
+        return b
     else:
-        return lucas(n-1) + lucas(n-2)
-
-
-def sum_series(n, n0, n1):
-
-
-
+        return sum_series(n-1, a, b) + sum_series(n-2, a, b)
+        
 
 if __name__ == "__main__":
 
