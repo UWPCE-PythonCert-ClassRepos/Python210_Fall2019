@@ -11,14 +11,17 @@ def lucas(n):
     return lucas(n, 2, 1)
 
 
-def sum_series(n, a=0, b=1):
-    if n == 0:
-        return a
+def sum_series(n, n1=0, n2=1):
+    """fibonacci 0 and 1 defaulted, optional arguments 2 and 1 lucas, and optional parameters other series"""
+    if n < 0:
+        return None
+    elif n == 0:
+        return n1
     elif n == 1:
-        return b
+        return n2
     else:
-        return sum_series(n-1, a, b) + sum_series(n-2, a, b)
-        
+        return sum_series(n-1, n1, n2) + sum_series(n-2, n1, n2)
+
 
 if __name__ == "__main__":
 
