@@ -5,7 +5,7 @@
 #function definition
 def fizbuzz(x):
     x = int(x)
-    for i in range(0, (x +1)):
+    for i in range(1, (x +1)):
         ###this must go first in order to capture ints that are divizable by 3 and 5
         if i % 3 == 0 and i % 5 == 0:
             print("fizz buzz")
