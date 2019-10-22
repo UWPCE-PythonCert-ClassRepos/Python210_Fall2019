@@ -18,7 +18,7 @@ def sum_series(n, a = 0, b = 1):
     #peforms fib/lucas IO
     #be careful of loops at this point when making changes
     else:
-        return sum_series(n-1, a, b) + sum_series(n-2, a, b)
+        return sum_series(n-2, a, b) + sum_series(n-1, a, b)
 
 if __name__ == "__main__":
     # run some tests
