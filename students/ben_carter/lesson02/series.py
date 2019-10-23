@@ -4,12 +4,9 @@ Created on Mon Oct 21 17:37:54 2019
 
 @author: bclas
 """
-"""
-if the var n is zero return a 0 and exit the function(return exits the function
-If the var n is 1 return a 1 and exit the fibonacci function
-if n is not 0 or 1 than process through the fibonacci equation
-"""
+
 def fibonacci(n):
+    """Returns the nth value from the finonacci series"""
     if n == 0:
         return 0
     elif n == 1:
@@ -17,10 +14,8 @@ def fibonacci(n):
     else:
         return fibonacci(n-2) + fibonacci(n-1)
     
-"""
-this does the same thing as the fibonacci function but it starts at 2.
-"""   
 def lucas(n):
+    """Returns the nth value from the lucas series"""
     if n == 0: 
         return 2
     elif n == 1:   
@@ -28,9 +23,8 @@ def lucas(n):
     else:
         return lucas(n-2) + lucas(n-1)
 
-"""takes var n and gives a fibonacci sequence number, If optional variables a and b are defined gives a lucas numberit """
-
 def sum_series(n, a=0, b=1):
+    """takes var n and gives a fibonacci sequence number, If optional variables a and b are defined gives a lucas numberit """
     if n == 0:
         if a == 2:
             return 2
@@ -41,7 +35,7 @@ def sum_series(n, a=0, b=1):
     else:     
         return sum_series(n-2,a,b) + sum_series(n-1,a,b)
     
-    
+if __name__ == "__main__":
 """tests for fibonacci"""
 assert sum_series(0) == 0
 assert sum_series(1) == 1
