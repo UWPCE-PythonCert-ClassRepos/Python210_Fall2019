@@ -36,3 +36,23 @@ def sum_series(n, n1=0, n2=1):
         elif n == 1:
             return n2
         return (sum_series((n-1), n1, n2) + sum_series((n-2), n1, n2))
+
+if __name__ == '__main__':
+    assert fibonacci(0) == 0
+    assert fibonacci(1) == 1
+    assert fibonacci(2) == 1
+    assert fibonacci(3) == 2
+    assert fibonacci(4) == 3
+    assert fibonacci(5) == 5
+
+    assert lucas(0) == 2
+    assert lucas(1) == 1
+    assert lucas(2) == 3
+    assert lucas(3) == 4
+    assert lucas(4) == 7
+    assert lucas(5) == 11
+
+    assert sum_series(5) == 5
+    assert sum_series(5,2,1) == 11
+    assert sum_series(5,3,4) == 29
+    print("test passed")
