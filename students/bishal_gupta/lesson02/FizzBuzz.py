@@ -1,10 +1,16 @@
-#Program in Python to iterate the numbers from 1 to 100 in inclusive.
-#For numbers that are multiples of 3, the program prints "Fizz".
-#For numbers that are multiples of 5, the program prints "Buzz".
-#For numbers that are multiples of both 3 and 5, the program prints "FizzBuzz".
-#For numbers that are neither multiples of 3 or 5, just program prints the number as is
+
 
 def FizzBuzz():
+
+    """
+    
+    Program in Python to iterate the numbers from 1 to 100 in inclusive.
+    For numbers that are multiples of 3, the program prints Fizz
+    For numbers that are multiples of 5, the program prints Buzz
+    For numbers that are multiples of both 3 and 5, the program prints FizzBuzz
+    For numbers that are neither multiples of 3 or 5, just program prints the number as is
+    """
+
     n = 0
     n_max = 100
 
