@@ -20,13 +20,12 @@ def grid_print(x, y):
     grid_height = y
     frame_row = ("+" + "-" * grid_width) * grid_width + "+"
     body_row = ("|" + " " * grid_width) * grid_width + "|"
-    grid = [frame_row, body_row]
 
     for i in range(grid_height):
-        print(grid[0])
+        print(frame_row)
         for j in range(grid_height - 1):
-            print(grid[1])
-    print(grid[0])
+            print(body_row)
+    print(frame_row)
 
 if __name__ == "__main__":
     grid_print(4,4)
