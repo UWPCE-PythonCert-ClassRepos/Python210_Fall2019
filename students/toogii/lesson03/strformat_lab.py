@@ -36,7 +36,18 @@ Now see if you can change the f-string so that it displays the names of the frui
 """
 
 def string_formatting_task_5(lst: list) -> str:
-    print(f'The weight of an {lst[0]} is {lst[1]} and the weight of a {lst[2]} is {lst[3]}')
-    print(f'The weight of an {lst[0].upper()} is {lst[1] + 1.2} and the weight of a {lst[2].upper()} is {lst[3] + 1.2}')
+    return f'The weight of an {lst[0]} is {lst[1]} and the weight of a {lst[2]} is {lst[3]}'
 
- 
+
+def string_formatting_task_5_bonus(lst: list) -> str:
+   return f'The weight of an {lst[0].upper()} is {lst[1] + 1.2} and the weight of a {lst[2].upper()} is {lst[3] + 1.2}'
+
+
+if __name__ == '__main__':
+    assert string_formatting_task_1_2((2, 123.4567, 10000, 12345.67)) == 'file_002:   123.46,   1.00E+04,  1.23E+04'
+    assert string_formatting_task_3((2, 123.4567, 10000, 12345.67)) == 'file_002:   123.46,   1.00E+04,  1.23E+04'    
+    assert string_formatting_task_4(( 4, 30, 2017, 2, 27)) == '02 27 2017 04 30'
+    assert string_formatting_task_5(['oranges', 1.3, 'lemons', 1.1]) == 'The weight of an oranges is 1.3 and the weight of a lemons is 1.1'
+    assert string_formatting_task_5_bonus(['oranges', 1.3, 'lemons', 1.1]) == 'The weight of an ORANGES is 2.5 and the weight of a LEMONS is 2.3'
+
+print('Test Succeeded!') 
