@@ -6,7 +6,7 @@ def fibonacci(n):
     return sum_series(n) 
 
 def lucas(n):
-    #sets sum_series lambdas to lucas series start values
+    #sets sum_series variables to lucas series start values
     return sum_series(n, a=2, b=1)
 
 def sum_series(n, a = 0, b = 1):
