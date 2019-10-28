@@ -52,7 +52,7 @@ def create_table(column, data: dict):
     for donor in data:
         temp_list.append(len(donor))
     longest_space = sorted(temp_list)[-1] + 3
-
+    print("\n\n\n")
     for item in column:
         print(item + (longest_space - len(item))*' ', end = '| ')
     print("\n")
@@ -66,15 +66,14 @@ def create_table(column, data: dict):
 
 
 def create_report():
-    column = ['Donor Name', 'Num Gifts', 'Total Given', 'Average Gift']
+    column = ['Donor Name', 'Num Gifts', 'Total Given ($)', 'Average Gift ($)']
     data = dict()
     lst = []
     for donor in donations:
         data.update({donor: []})
         for k, v in donations[donor].items():
             data[donor].append(v)
-        data[donor].append("$ " + str(data[donor][-1]/data[donor][-2]))
-    print(data)
+        data[donor].append(str(data[donor][-1]/data[donor][-2]))
     create_table(column,data)
 
 
