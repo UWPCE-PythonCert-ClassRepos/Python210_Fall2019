@@ -7,11 +7,10 @@ def fruit_loops(x):
         elif choice == "no":
             x.remove(i)
         print("Current list of fruits: ")
-    b = 0
-    for i in x:
-        print(((str(b + 1) + ".") + x[b]))
-        b += 1
-
+        b = 0
+        for i in x:
+            print(((str(b + 1) + ".") + x[b]))
+            b += 1
 
 def fruit_remove(x):
     b = input("what fruit do you want to remove from the list? ")
