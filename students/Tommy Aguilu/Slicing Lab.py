@@ -1,3 +1,7 @@
+### Author - Tommy Aguilu
+### Version 1.0
+### Class - Python 210A
+
 def first_last(flippy):
     first = flippy[0]
     last = flippy[-1]
