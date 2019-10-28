@@ -7,7 +7,7 @@ Created on Tue Oct 15 19:28:36 2019
 
 for i in range(1,101):
     if i%3==0 and i%5==0:
-     print('FizzBuzz')
+        print('FizzBuzz')
     elif i%5==0:
         print('Buzz')
     elif i%3==0:
