@@ -24,6 +24,7 @@ s = f'file_{t[0]:03} :  {t[1]:.2f}, {t[2]:.2e}, {t[3]:.2e}'
 t = (1,2,3,4)
 
 def formatter(t: tuple):
+    """Return a string describing the input tuple"""
     s = 'The {} numbers are: ' + '{}, '*(len(t)-1) + '{}'
     return s.format(len(t),*t)
 

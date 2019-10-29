@@ -21,8 +21,10 @@ def list1():
     print(int(idx), fruits[int(idx)-1])
     
     fruits = ['Bananas'] + fruits
+    print('Your list is:\n', fruits)
     
     fruits.insert(0,'Pineapples')
+    print('Your list is:\n', fruits)
     
     for _ in fruits:
         if _[0] == 'P':
@@ -60,7 +62,7 @@ def list3(fruits):
     
     templist = fruits[:]
     for _ in fruits:
-        ans = input('Do you like {}?\n'.format(_))
+        ans = input('Do you like {}?\n'.format(_.lower()))
         while ans.lower() != 'yes' and ans.lower() != 'no':
             ans = input('Please respond "yes" or "no".\n')
         if ans.lower() == 'no':
