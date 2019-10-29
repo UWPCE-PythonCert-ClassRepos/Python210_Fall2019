@@ -3,7 +3,7 @@ def series1(fruit_list):
     # Ask the user for another fruit and add it to the end of the list.
     # Display the list.
     print("SERIES 1======")
-    response = input("What fruit would you like to add?000 ")
+    response = input("What fruit would you like to add?")
     fruit_list.append(response)
     print(fruit_list)
 
