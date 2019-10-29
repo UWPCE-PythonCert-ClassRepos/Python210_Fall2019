@@ -35,14 +35,21 @@ def list_all_donors():
 def get_a_new_donor_info():
     # Get the Donor name and donation amount
     while True:
-        donor = str(input("\nEnter the full name of the Donor or type list to list all existing Donors:   "))
+        donor = str(input("\nEnter the full name of the Donor or type list to list all existing Donors(or enter QUIT to go back to main menu):   "))
         print("\nYour Entered {} \n\n" .format(donor.upper()))
         sleep(1)
         if donor.upper() == "LIST":
             list_all_donors()
             continue
-        donation_amount = input('Please enter the donation amount of {} ?:  '.format(donor))
-        return donor.upper(), int(donation_amount)
+        if donor.upper() == 'QUIT':
+            main(called=True)
+            continue
+        while True:
+            donation_amount = input('Please enter the donation amount of {} (or enter QUIT to go back to main menu) ? :  '.format(donor))
+            if donation_amount.upper() == 'QUIT':
+                main(called=True)
+                continue
+            return donor.upper(), int(donation_amount)
 
 
 def send_a_thank_you():
@@ -85,10 +92,12 @@ def create_report():
     create_table(column,data)
 
 
-def main():
+def main(called=False):
     while True:
         print('\n\n\n\t Welcome to Donations!\n\n')
         print('\t1.   {}\n\t2.   {}'.format(*choices))
+        if called == True:
+            print('\t3.   Go back where you left the task')
         choice = input("\n\nPlease Enter Your choice(1 or 2):   ")
         sleep(1)
         if choice == '1':
@@ -97,6 +106,9 @@ def main():
         elif choice == '2':
             print("\nYour choice was {}\n".format(choices[1]))
             create_report()
+        elif choice == '3':
+            if called == True:
+                return None
         else:
             print("Please enter a valid choice!")
 
