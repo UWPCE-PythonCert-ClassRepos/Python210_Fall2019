@@ -15,7 +15,7 @@ def email_compose(name: str, donation_amount: int):
     print("\n{}".format(email_letter))
     print("="*30)
     sleep(1)
-    print("\n\nGoing back to main menu\n\n")   
+    print("\n\nGoing back to main menu\n\n")
 
 def update_donation(donor, donation_amnt):
     # Update dictionary of donors with new donor information.
@@ -41,12 +41,12 @@ def get_a_new_donor_info():
         if donor.upper() == "LIST":
             list_all_donors()
             continue
-        donation_amount = int(input('Please enter the donation amount of {} ?:  '.format(donor)))
-        return donor.upper(), donation_amount
+        donation_amount = input('Please enter the donation amount of {} ?:  '.format(donor))
+        return donor.upper(), int(donation_amount)
 
 
 def send_a_thank_you():
-    # Gather Information about the new Donor 
+    # Gather Information about the new Donor
     donor,donation_amount = get_a_new_donor_info()
     sleep(1)
     update_donation(donor.upper(),int(donation_amount))
@@ -54,7 +54,7 @@ def send_a_thank_you():
 
 
 def create_table(column, data: dict):
-    # Find the longest name to make large enough cell 
+    # Find the longest name to make large enough cell
     temp_list = list()
     for donor in data:
         temp_list.append(len(donor))
@@ -82,7 +82,7 @@ def create_report():
         for k, v in donations[donor].items():
             data[donor].append(v)
         data[donor].append(str(data[donor][-1]/data[donor][-2]))
-    create_table(column,data)  
+    create_table(column,data)
 
 
 def main():
@@ -98,9 +98,9 @@ def main():
             print("\nYour choice was {}\n".format(choices[1]))
             create_report()
         else:
-            print("Please enter a valid choice!") 
+            print("Please enter a valid choice!")
 
 
 
 if __name__ == '__main__':
-    main()     
+    main()
