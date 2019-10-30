@@ -26,7 +26,6 @@ class CLI():
     def generate_cli(self):
         """
         Generate the CLI. Updates class attributes cli_options, cli_prompt.
-        :param cli_functions: List of functions that will be the CLI options
         :return: None
         """
         options = [i.__name__ for i in self.cli_functions]
