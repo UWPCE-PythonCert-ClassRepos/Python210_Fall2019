@@ -167,7 +167,7 @@ sleep(1)
 
 print("\nDelete the last item of the original list. Display the original list and the copy.\n")
 
-fruit_copy_copy.remove(fruit_copy_copy[-1])
+fruits_copy.remove(fruits_copy[-1])
 
 sleep(1)
 
