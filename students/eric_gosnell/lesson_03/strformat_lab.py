@@ -32,12 +32,13 @@ tuple_d = 4, 30, 2017, 2, 27
 print("{3:02d} {4} {2} {0:02d} {1}".format(*tuple_d))
 
 # Task 5 - Print a formatted list using f string.
+# List processing done two different ways.
 
-fruit_a, weight_a, fruit_b, weight_b = ["oranges", 1.3, "lemons", 1.1]
+list_e = ["oranges", 1.3, "lemons", 1.1]
+print(f"The weight of an {list_e[0][:-1]} is {list_e[1]}"
+      f" and the weight of a {list_e[2][:-1]} is {list_e[3]}")
 
-print(f"The weight of an {fruit_a[:-1]} is {weight_a}"
-      f" and the weight of a {fruit_b[:-1]} is {weight_b}")
-
+fruit_a, weight_a, fruit_b, weight_b = list_e
 print(f"The weight of an {fruit_a[:-1].upper()} is {weight_a * 1.2}"
       f" and the weight of a {fruit_b[:-1].upper()} is {weight_b * 1.2}")
 
