@@ -17,6 +17,7 @@ def email_compose(name: str, donation_amount: int):
     sleep(1)
     print("\n\nGoing back to main menu\n\n")
 
+
 def update_donation(donor, donation_amnt):
     # Update dictionary of donors with new donor information.
     if donor in donations:
