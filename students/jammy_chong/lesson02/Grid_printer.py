@@ -1,17 +1,9 @@
 #Part 1
 def grid_printer():
-    horizontal_line = '+ - - - - + - - - - +'
-    vertical_line = '|         |         |'
+    horizontal_line = '+ - - - - + - - - - +\n'
+    vertical_line = '|         |         |\n'
 
-    print(horizontal_line)
-    print(vertical_line)
-    print(vertical_line)
-    print(vertical_line)
-    print(horizontal_line)
-    print(vertical_line)
-    print(vertical_line)
-    print(vertical_line)
-    print(horizontal_line)
+    print((horizontal_line + vertical_line*4)*2 + horizontal_line)
 
 #Part 2
 def print_grid(n):
