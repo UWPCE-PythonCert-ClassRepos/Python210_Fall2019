@@ -17,7 +17,7 @@ def series_one():
     response = input("\nPlease add another fruit for the list. >")
     fruit_list.append(response.lower())
 
-    response = int(input("\nPlease enter a number between {} and {}. >".format(1, len(fruit_list) - 1)))
+    response = int(input("\nPlease enter a number between {} and {}. >".format(1, len(fruit_list))))
     print("Fruit list item #", response, "is", fruit_list[response - 1])
 
     response = input("\nPlease add another fruit for the list. >")
