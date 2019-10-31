@@ -22,7 +22,7 @@ def dict_lab_01():
 
     print(chris_dict)
 
-    del(chris_dict['Cake'])
+    del (chris_dict['Cake'])
 
     print(chris_dict)
 
@@ -60,3 +60,9 @@ def dict_lab_02():
 
     print(chris_dict_counted)
 
+
+try:
+    while True:
+        print("Hello!")
+except KeyboardInterrupt:
+    print("Phew! We're done.")

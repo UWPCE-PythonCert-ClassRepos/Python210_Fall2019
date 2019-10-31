@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+#TODO Add function or child class for sub-prompts
 
 class CLI():
     """
