@@ -1,34 +1,30 @@
 #!/usr/bin/env python3
 
-def fibonacci(n):
-    """Return the nth value of a Fibonacci sequence."""
 
-    return sum_series(n)
+def fibonacci(n):
+    """fibonacci n value"""
+    return fibonacci(n)
+
 
 def lucas(n):
-    """Return the nth value of a Lucas sequence."""
+    """lucas nth value"""
+    return lucas(n, 2, 1)
 
-    return sum_series(n, n0=2, n1=1)
 
-
-def sum_series(n, n0=0, n1=1):
-    """Return the nth value of a Fibonacci sequence if n0=0 and n1=1.
-    Else, return the nth value of a Lucas sequence."""
-
-    if n0 == 0 and n1 == 1:
-        if n == 0:
-            return 0
-        elif n == 1:
-            return 1
+def sum_series(n, n1=0, n2=1):
+    """fibonacci 0 and 1 defaulted, optional arguments 2 and 1 lucas, and optional parameters other series"""
+    if n < 0:
+        return None
+    elif n == 0:
+        return n1
+    elif n == 1:
+        return n2
     else:
-        if n == 0:
-            return n0
-        elif n == 1:
-            return n1
-    return sum_series(n - 2, n0, n1) + sum_series(n - 1, n0, n1)
+        return sum_series(n-1, n1, n2) + sum_series(n-2, n1, n2)
 
 
 if __name__ == "__main__":
+
     # run some tests
     assert fibonacci(0) == 0
     assert fibonacci(1) == 1
@@ -60,4 +56,3 @@ if __name__ == "__main__":
     assert sum_series(5, 3, 2) == 19
 
     print("tests passed")
-
