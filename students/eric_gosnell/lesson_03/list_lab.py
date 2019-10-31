@@ -64,7 +64,7 @@ def series_two():
         response = input("\nPlease enter the name of another fruit to delete from the list. >")
 
         counter = 0
-        for fruit in fruit_list:
+        for fruit in fruit_list[:]:
             if response.lower() == fruit.lower():
                 fruit_list.remove(fruit)
                 counter += 1
