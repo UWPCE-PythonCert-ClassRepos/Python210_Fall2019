@@ -45,7 +45,7 @@ def series_two():
     print("\nFruit list with last item removed:", fruit_list)
 
     response = input("\nPlease enter the name of a fruit to delete from the list. >")
-    for fruit in fruit_list:
+    for fruit in fruit_list[:]:
         if response.lower() == fruit.lower():
             fruit_list.remove(fruit)
         else:
