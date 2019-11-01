@@ -73,18 +73,15 @@ def last_third_first(seq):
         str_last = seq[-i:]
         return str_last + str_first
     elif isinstance(seq, tuple):
-        tmp_list = list(seq)
-        new_list = tmp_list[:]
-        new_list[0] = tmp_list[-1]
-        new_list[1:-1] = tmp_list[1:-1]
-        new_list[-1] = tmp_list[0]
-        return tuple(new_list)
+        i = (len(seq) // 3)
+        list_first = seq[:-i]
+        list_last = seq[-i:]
+        return tuple(list_last + list_first)
     else:
-        new_list = seq[:]
-        new_list[0] = seq[-1]
-        new_list[1:-1] = seq[1:-1]
-        new_list[-1] = seq[0]
-        return new_list
+        i = (len(seq) // 3)
+        list_first = seq[:-i]
+        list_last = seq[-i:]
+        return list_last + list_first
 
 
 if __name__ == "__main__":
@@ -105,7 +102,7 @@ if __name__ == "__main__":
     assert reversed_elements(a_list) == [11, 'item10', 9, 'item8', 7, 'item6', 5, 'item4', 3, 'item2', 1, 'item0']
 
     assert last_third_first(a_string) == " stringThis is a test"
-    assert last_third_first(a_tuple) == (779, 54, 13, 12, 5, 32, 75, 93, 100, 2048, 531, 2)
-    assert last_third_first(a_list) == [11, 1, 'item2', 3, 'item4', 5, 'item6', 7, 'item8', 9, 'item10', 'item0']
+    assert last_third_first(a_tuple) == (100, 2048, 531, 779, 2, 54, 13, 12, 5, 32, 75, 93)
+    assert last_third_first(a_list) == ['item8', 9, 'item10', 11, 'item0', 1, 'item2', 3, 'item4', 5, 'item6', 7]
 
 print("All tests passed!")
