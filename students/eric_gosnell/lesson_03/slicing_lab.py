@@ -19,7 +19,6 @@ def exchange_first_last(seq):
         str_middle = seq[1:-1]
         str_last = seq[-1]
         return str_last + str_middle + str_first
-
     elif isinstance(seq, tuple):    # Tuple specific due to immutability of argument.
         tmp_list = list(seq)
         new_list = tmp_list[:]
