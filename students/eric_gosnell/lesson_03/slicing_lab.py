@@ -105,7 +105,6 @@ if __name__ == "__main__":
     assert reversed_elements(a_list) == [11, 'item10', 9, 'item8', 7, 'item6', 5, 'item4', 3, 'item2', 1, 'item0']
 
     assert last_third_first(a_string) == " stringThis is a test"
-
     assert last_third_first(a_tuple) == (779, 54, 13, 12, 5, 32, 75, 93, 100, 2048, 531, 2)
     assert last_third_first(a_list) == [11, 1, 'item2', 3, 'item4', 5, 'item6', 7, 'item8', 9, 'item10', 'item0']
 
