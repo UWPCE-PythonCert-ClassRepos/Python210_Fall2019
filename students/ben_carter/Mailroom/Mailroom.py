@@ -69,7 +69,7 @@ def mailroom():
             send_thank_you()
         elif user == "2":
             create_report()
-        elif user == "3"
+        elif user == "3":
             exit_program()
         else:
             print("The input received was not valid. Please input 1, 2, or 3.")    
@@ -144,10 +144,10 @@ def create_report():
     for key, amount in donors.items():
         total_donation = sum(amount)
         num_donations = len(amount)
-        avg_domation = total_donation / num_donations
+        avg_donation = total_donation / num_donations
         formated_total_donation = ("{:.2f}".format(total_donation))
         formated_avg_donation = ("{:.2f}".format(avg_donation))
-        print(f"{key:<15} ${formated_total_donation:>15} {num_dontations} ${formated_avg_donation:>15})
+        print(f"{key:<15} ${formated_total_donation:>15} {num_donations} ${formated_avg_donation:>15}")
         
     
 def exit_program():
