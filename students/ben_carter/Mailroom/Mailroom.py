@@ -71,8 +71,7 @@ def mailroom():
         elif user == "3"
             exit_program()
         else:
-            print("The input received was not valid. Please input 1, 2, or 3.")
-            
+            print("The input received was not valid. Please input 1, 2, or 3.")    
 
 def build_email():
     """This function generates a thank you email """
@@ -81,7 +80,21 @@ def send_thank_you():
     """This function is called when the user inputs option 1. its than askes
     the user for a donors name or takes the list input to display the names
     of all the donors. it does with with a while loop until
-    user inputs q to exit"""
+    user inputs q to exit
+    
+    this function also contains the list_donors() function which will build a 
+    list of current donors once the users inputs 1 and than requests the 'list'
+    option
+    """
+    
+    
+    
+    def list_donors():
+        """This function prints a list of all current donors"""
+        print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
+        for donor in donors.keys():
+            print(f" ", donor)
+        print("_" * 20)
     
 def create_report():
     """This function generates a formated report of all donors and some
