@@ -91,6 +91,15 @@ def build_email(user, donated):
             
             """.format(user, donated))
     
+        
+def list_donors():
+    """This function prints a list of all current donors"""
+    print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
+    for donor in donors.keys():
+        print(f" ", donor)
+    print("_" * 20)
+
+    
 def send_thank_you():
     """This function is called when the user inputs option 1. its than asks
     the user for a donors name or takes the list input to display the names
@@ -101,15 +110,7 @@ def send_thank_you():
     list of current donors once the users inputs 1 and than requests the 'list'
     option
     """
-    def list_donors():
-        """This function prints a list of all current donors"""
-        print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
-        for donor in donors.keys():
-            print(f" ", donor)
-        print("_" * 20)
 
-    
-    
     while true:
         user = input("Enter the full name of the donor you want to email, "
                      "\nor type 'list' to see a list of current donors"
