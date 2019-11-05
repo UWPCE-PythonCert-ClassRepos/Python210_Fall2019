@@ -59,6 +59,7 @@ prompt = "\n".join(("\nMailroom Script, Welcome!",
                     "3 ) Exit the script",
                     " "))
 
+
 def mailroom():
     """This function will contain the meat of the script which will inform the
     script what function to call based on the users input at the first prompt"""
@@ -73,8 +74,22 @@ def mailroom():
         else:
             print("The input received was not valid. Please input 1, 2, or 3.")    
 
+
 def build_email(user, donated):
     """This function generates a thank you email """
+    print(
+          """  
+            {}
+            
+            Thank you for your wonderful donation of ${:.2f}!
+            As you know, dismantaling the structures of global capitalism is
+            quite expensive, with your help we are one step closer to our goals!
+            
+            Many thanks!
+            
+            Center for the prolonged excistence of literally any life on planet earth.
+            
+            """.format(user, donated))
     
 def send_thank_you():
     """This function is called when the user inputs option 1. its than askes
@@ -106,19 +121,34 @@ def send_thank_you():
             donated = float(donation)
             donors[user] = [donated]
             build_email(user, donated)
-    
-    
-    
+        
     def list_donors():
         """This function prints a list of all current donors"""
         print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
         for donor in donors.keys():
             print(f" ", donor)
         print("_" * 20)
+
     
 def create_report():
     """This function generates a formated report of all donors and some
     information regarding their donations"""
+    donor_name = "Donor Name"
+    total_donation = "Total of donations"
+    num_donations = "Number of donations"
+    avg_donation = "Average of donations"
+    report_header = f"{donor_name:<15}|{total_donation:>15}|{num_donations:>15}|{avg_donation:>15}"
+    print(report_header)
+    print(len(report_header)*"_")
+    
+    for key, amount in donors.items():
+        total_donation = sum(amount)
+        num_donations = len(amount)
+        avg_domation = total_donation / num_donations
+        formated_total_donation = ("{:.2f}".format(total_donation))
+        formated_avg_donation = ("{:.2f}".format(avg_donation))
+        print(f"{key:<15} ${formated_total_donation:>15} {num_dontations} ${formated_avg_donation:>15})
+        
     
 def exit_program():
     """This function closes the program"""
