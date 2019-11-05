@@ -84,8 +84,3 @@ print(fruits)
 print(reversed_fruits)
 
 
-
-
-
-
-
