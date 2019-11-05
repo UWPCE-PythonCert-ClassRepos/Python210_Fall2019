@@ -46,7 +46,7 @@ donors = {
         "Bernie Sanders": [65234.82, 143.25],
         "Freddie Mercury": [72134.41],
         "Bob Dylan": [540, 9000, 344.23, 231.15, 877],
-        "Winston Churchhill":[1874, 1965],
+        "Winston C.hill":[1874, 1965],
         "Carl Segan": [3245.42, 1996, 1934],
         "Marc Marquez": [120.25, 200, 525, .75]
         }
@@ -92,7 +92,7 @@ def build_email(user, donated):
             """.format(user, donated))
     
 def send_thank_you():
-    """This function is called when the user inputs option 1. its than askes
+    """This function is called when the user inputs option 1. its than asks
     the user for a donors name or takes the list input to display the names
     of all the donors. it does with with a while loop until
     user inputs q to exit
@@ -101,6 +101,15 @@ def send_thank_you():
     list of current donors once the users inputs 1 and than requests the 'list'
     option
     """
+    def list_donors():
+        """This function prints a list of all current donors"""
+        print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
+        for donor in donors.keys():
+            print(f" ", donor)
+        print("_" * 20)
+
+    
+    
     while true:
         user = input("Enter the full name of the donor you want to email, "
                      "\nor type 'list' to see a list of current donors"
@@ -122,12 +131,6 @@ def send_thank_you():
             donors[user] = [donated]
             build_email(user, donated)
         
-    def list_donors():
-        """This function prints a list of all current donors"""
-        print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
-        for donor in donors.keys():
-            print(f" ", donor)
-        print("_" * 20)
 
     
 def create_report():
@@ -147,7 +150,7 @@ def create_report():
         avg_donation = total_donation / num_donations
         formated_total_donation = ("{:.2f}".format(total_donation))
         formated_avg_donation = ("{:.2f}".format(avg_donation))
-        print(f"{key:<15} ${formated_total_donation:>15} {num_donations} ${formated_avg_donation:>15}")
+        print(f"{key:<15} ${formated_total_donation:>17} {num_donations:>19} ${formated_avg_donation:>19}")
         
     
 def exit_program():
@@ -157,4 +160,4 @@ def exit_program():
     
 
 if __name__ == "__main__":
-    main()
+    mailroom()
