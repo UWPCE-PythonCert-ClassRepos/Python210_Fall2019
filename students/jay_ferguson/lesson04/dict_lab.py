@@ -79,11 +79,11 @@ def set_lab_01():
         """
         Return a set of multiples of n that are in range 1-20 inclusive.
         """
-        multiples = []
+        multiples = set()
         for i in range(1, 21):
             if i % n == 0:
-                multiples.append(i)
-        return set(multiples)
+                multiples.add(i)
+        return multiples
 
     s2 = create_set(2)
     s3 = create_set(3)
@@ -96,7 +96,35 @@ def set_lab_01():
     print('Is s4 a subset of s2? ', s4.issubset(s2))
 
 
+def set_lab_02():
+    """
+    Create a set with the letters in ‘Python’ and add ‘i’ to the set.
+    Create a frozenset with the letters in ‘marathon’.
+    Display the union and intersection of the two sets.
+    """
+    print("\nSet Lab 02")
+    python = set()
+    for i in 'Python':
+        python.add(i)
+
+    print(python)
+
+    python.add('i')
+
+    marathon = set()
+    for i in 'marathon':
+        marathon.add(i)
+
+    frozen_marathon = frozenset(marathon)
+
+    print(frozen_marathon)
+
+    print('Union: ', python | frozen_marathon)
+    print ('Intersection: ', python & frozen_marathon)
+
+
 if __name__ == '__main__':
     dict_lab_01()
     dict_lab_02()
     set_lab_01()
+    set_lab_02()
