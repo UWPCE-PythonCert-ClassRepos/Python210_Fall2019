@@ -14,7 +14,7 @@ three options 1) send a thank you email, 2) Generate a report, 3)Exit the progra
 """
 
 """
-1) Build a dictionary (as Key=donor name value as donated ammount)
+1) Build a dictionary (as Key=donor name value as donated amount)
 with multiple donors to pull from
 
 2) receive user input as 1, 2, or 3
@@ -26,8 +26,8 @@ can end with an else for inproper input from user
 4) send a thank you function called when user inputs 1, (while loop, with
 inbedded if elifs) prompts user for a donor or takes 'list' as input and 
 displays a list of donors. if donor name given is not in dictionary, add and 
-prompt for donation ammount, then calls build_email function which will
-assemble the thank you message with the donors name and ammount of donation
+prompt for donation amount, then calls build_email function which will
+assemble the thank you message with the donors name and amount of donation
 
 5) generate a report that is cleanly formated when user inputs 2. 
 Can use {____:>14} method of string length formating. uses for loop to 
@@ -73,7 +73,7 @@ def mailroom():
         else:
             print("The input received was not valid. Please input 1, 2, or 3.")    
 
-def build_email():
+def build_email(user, donated):
     """This function generates a thank you email """
     
 def send_thank_you():
@@ -86,6 +86,26 @@ def send_thank_you():
     list of current donors once the users inputs 1 and than requests the 'list'
     option
     """
+    while true:
+        user = input("Enter the full name of the donor you want to email, "
+                     "\nor type 'list' to see a list of current donors"
+                     "\nor type 'q' to return to previous menu:")
+        if user == "q":
+            break
+        elif user == "list":
+            list_donors()
+        elif user in donors:
+            donation = input("Enter the donation amount or 'q' to exit: ") 
+            if donation == "q":
+                break
+            donated = float(donation)
+            donors[user].append(donated)
+            build_email(user, donated)
+        else:
+            donation = input("{} not found in donors, Adding donor, enter a donation amount: ".format(user))
+            donated = float(donation)
+            donors[user] = [donated]
+            build_email(user, donated)
     
     
     
