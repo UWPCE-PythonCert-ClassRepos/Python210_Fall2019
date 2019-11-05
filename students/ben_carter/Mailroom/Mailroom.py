@@ -5,7 +5,6 @@ Created on Tue Nov  5 08:47:12 2019
 @author: bclas
 """
 
-
 import sys
 
 """
@@ -15,19 +14,41 @@ three options 1) send a thank you email, 2) Generate a report, 3)Exit the progra
 """
 
 """
-1) Build a dictionary with multiple donors to pull from
-2) prompt the user to select 1, 2, or 3
-3) in a function construct while loop
+1) Build a dictionary (as Key=donor name value as donated ammount)
+with multiple donors to pull from
+
+2) receive user input as 1, 2, or 3
+
+3) contain the following functions within a Main Mailroom function.
+this will be a while loop which uses if and elifs based on the users input
+can end with an else for inproper input from user
+
+4) send a thank you function called when user inputs 1, (while loop, with
+inbedded if elifs) prompts user for a donor or takes 'list' as input and 
+displays a list of donors. if donor name given is not in dictionary, add and 
+prompt for donation ammount, then calls build_email function which will
+assemble the thank you message with the donors name and ammount of donation
+
+5) generate a report that is cleanly formated when user inputs 2. 
+Can use {____:>14} method of string length formating. uses for loop to 
+assemble report much like grid printer exercise.
+
+for key, value in dictionary
+print {____:>14}
+
+6) exit program input uses sys.exit to close mailroom
+
 """
 
 
 
 donors = {
         "Bernie Sanders": [65234.82, 143.25],
-        "Freddie Mercury": [72134.41]
-        "Bob Dylan": [540, 9000, 344.23, 231.15, 877]
-        "Winston Churchhill":[1874, 1965]
-        "Carl Segan": [3245.42, 1996, 1934]
+        "Freddie Mercury": [72134.41],
+        "Bob Dylan": [540, 9000, 344.23, 231.15, 877],
+        "Winston Churchhill":[1874, 1965],
+        "Carl Segan": [3245.42, 1996, 1934],
+        "Marc Marquez": [120.25, 200, 525, .75]
         }
 
 
