@@ -16,11 +16,11 @@ donor_db = [('Bill Gates', [4000.32, 35.00, 17899.99]),
             ('Denise Richards', [6040.77])]
 
 prompt = "\n".join(("\nWelcome to the mailroom!",
-          "Please choose from below options:",
-          "1 - Send a Thank You",
-          "2 - Create a Report",
-          "3 - quit",
-          ">>> "))
+                    "Please choose from below options:",
+                    "1 - Send a Thank You",
+                    "2 - Create a Report",
+                    "3 - quit",
+                    ">>> "))
 
 
 def sort_key(donor):
@@ -33,21 +33,21 @@ def thank_you():
     response = 'list'
     # get donor name from user, display donor list if asked
     while response == 'list':
-        response = input('\nWhat is the full name of the donor to whom you would like to ' + \
-                     'send a thank you?\nType "list" for a list of current donors ' + \
-                     'or "q" to quit back to main menu.\n>>> ')
+        response = input('\nWhat is the full name of the donor to whom you would like to '
+                         + 'send a thank you?\nType "list" for a list of current donors '
+                         + 'or "q" to quit back to main menu.\n>>> ')
         if response == 'list':
             for x, y in donor_db:
                 print(x)
         elif response == 'q':
             main()
         else:
-            check = input(f'Is "{response.title()}" the correct donor name?\n' + \
-                          'Please respond "y", "n", or "q" to quit back to main menu: ')
+            check = input(f'Is "{response.title()}" the correct donor name?\n'
+                          + 'Please respond "y", "n", or "q" to quit back to main menu: ')
             if check == 'q':
                 main()
             elif check != 'y':
-                response = 'list'  
+                response = 'list'
     name = response.title()
     # get donation amount
     amount = input(f'Enter the amount that {name} donated or type "q" to quit back to the main menu: ')
@@ -58,11 +58,11 @@ def thank_you():
         donor_db.append((name, []))
     idx = [x for x, y in donor_db].index(name)
     donor_db[idx][1].append(float(amount))
-    #format an email thank you and print to the terminal
-    ty_note = 'Dear Mr/Mrs {},\n\n' + \
-                'Thank you so much for your donation of ${:.2f}!\n' + \
-                'We here at RLC (Random Local Charity) really appreciate it!\n\n' + \
-                'Sincerely,\n\nBob Saget, CEO of RLC\n'
+    # format an email thank you and print to the terminal
+    ty_note = 'Dear Mr/Mrs {},\n\n' \
+              + 'Thank you so much for your donation of ${:.2f}!\n' \
+              + 'We here at RLC (Random Local Charity) really appreciate it!\n\n' \
+              + 'Sincerely,\n\nBob Saget, CEO of RLC\n'
     print(ty_note.format(name, float(amount)))
 
 
@@ -77,8 +77,9 @@ def create_report():
     # build the body of the report; a list of donors and info about their gifts
     body = ['']*len(sorted_db)
     for i in range(len(sorted_db)):
-        body[i] = bodyline.format(sorted_db[i][0],sum(sorted_db[i][1]),
-            len(sorted_db[i][1]),sum(sorted_db[i][1])/len(sorted_db[i][1]))
+        body[i] = bodyline.format(sorted_db[i][0], sum(sorted_db[i][1]),
+                                  len(sorted_db[i][1]),
+                                  sum(sorted_db[i][1])/len(sorted_db[i][1]))
     # print out the report
     print(header, separator, sep='\n')
     for i in range(len(sorted_db)):
