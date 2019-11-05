@@ -62,17 +62,28 @@ prompt = "\n".join(("\nMailroom Script, Welcome!",
 def mailroom():
     """This function will contain the meat of the script which will inform the
     script what function to call based on the users input at the first prompt"""
+    while True:
+        user = input(prompt)
+        if user == "1":
+            send_thank_you()
+        elif user == "2":
+            create_report()
+        elif user == "3"
+            exit_program()
+        else:
+            print("The input received was not valid. Please input 1, 2, or 3.")
+            
 
 def build_email():
     """This function generates a thank you email """
     
-def Send_thank_you():
+def send_thank_you():
     """This function is called when the user inputs option 1. its than askes
     the user for a donors name or takes the list input to display the names
     of all the donors. it does with with a while loop until
     user inputs q to exit"""
     
-def report():
+def create_report():
     """This function generates a formated report of all donors and some
     information regarding their donations"""
     
