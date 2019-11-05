@@ -41,7 +41,6 @@ print {____:>14}
 """
 
 
-
 donors = {
         "Bernie Sanders": [65234.82, 143.25],
         "Freddie Mercury": [72134.41],
@@ -110,8 +109,7 @@ def send_thank_you():
     list of current donors once the users inputs 1 and than requests the 'list'
     option
     """
-
-    while true:
+    while True:
         user = input("Enter the full name of the donor you want to email, "
                      "\nor type 'list' to see a list of current donors"
                      "\nor type 'q' to return to previous menu:")
@@ -133,7 +131,6 @@ def send_thank_you():
             build_email(user, donated)
         
 
-    
 def create_report():
     """This function generates a formated report of all donors and some
     information regarding their donations"""
