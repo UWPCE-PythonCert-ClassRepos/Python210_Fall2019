@@ -1,5 +1,9 @@
+### Author - Tommy Aguilu
+### Version 1.0
+### Class - Python 210A
+
 import math
-donor_raw = {"Mark Zuck" : [578, 86, 77], "Mark b" : [578, 86, 77, 67543]}
+donor_raw = {"Mark Zuckerberg" : [32432, 38475, 7845], "Jeff_Bezos" : [23424, 234324, 444432, 222341], "Paul Allen" : [23424, 234324, 44432, 2341], "Melinda Gates" : [3432, 26524, 44432, 22741]}
 #key = donor, values = all donations
 donor_processed = []
 def list_reader(list1):
@@ -20,6 +24,16 @@ def donor_letter(donor_raw,donor_choice):
     donations_output = donations[-1]
     print("thank you {} for your most recent donation of {}".format(donor_choice, donations_output))
 
+def send_many(donor_raw):
+    for k in donor_raw:
+        for k,v  in donor_raw.items():
+            with open(k, "w") as f:
+                length = (len(v)-1)
+                f.write(("thank you {} for your most recent donation of {}".format(k, v[length])))
+                f.close()
+    print("letters sent!")
+
+
 for key, value in donor_raw.items():
     x = []
     x.append(key)
@@ -35,9 +49,11 @@ while sentinal == True:
         list_reader(donor_processed)
     elif choice == str(2):
         donor_list(donor_raw)
-        donor_choice = input("Which donor would you like to write a thank you to?")
+        donor_choice = input("Which donor would you like to write a thank you to? (type all if you would like to send it a letter to all) ")
         if donor_choice in donor_raw:
             donor_letter(donor_raw,donor_choice)
+        if donor_choice == "all":
+            send_many(donor_raw)
         else:
             donation_list = []
             donation = input("Donor not found in list please specify how donation amount")
