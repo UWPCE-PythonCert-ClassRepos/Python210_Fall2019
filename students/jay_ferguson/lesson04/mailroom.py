@@ -142,6 +142,7 @@ def send_letters_to_all_donors():
         message = message.format(first_name=donor.split(' ')[0])
         # Strip commas and spaces
         file_name_prefix = donor.replace(' ', '').replace(',' , '')
+
         filename = file_name_prefix + '_' + datetime.now().strftime("%b%d%YT%H%M%S") + '.txt'
 
         with open(os.environ['DONOR_DIR'] + filename, 'w') as f:
