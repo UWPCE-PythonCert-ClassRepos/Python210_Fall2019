@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 donors = {'William Gates, III': [653784.49, 1000.50], 'Mark Z': [16396.10, 30000, 20000.30], 'Jeff B': [
     877.33], 'Paul Allen': [708.42, 780, 444.20], 'Satya': [1000, 500.33]}
 
