@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-#TODO Add function or child class for sub-prompts
+# TODO Add function or child class for sub-prompts
 
 class CLI():
     """
     Class to present a CLI to the user.
     """
+
     def __init__(self, cli_functions=None):
         """
         Initialize the CLI class.
@@ -17,12 +18,12 @@ class CLI():
         self.cli_functions = cli_functions
         self.cli_message = ("Menu Options\n")
         self.cli_options_template = "{}) {}\n"
+        self.cli_prompt = None  # Generate with helper function generate_cli
 
         self.generate_cli()
 
-        #Should we continue to display the prompt? Set to False to stop.
+        # Should we continue to display the prompt? Set to False to stop.
         self.continue_session = True
-
 
     def generate_cli(self):
         """
@@ -42,7 +43,6 @@ class CLI():
             cli_prompt += option
 
         self.cli_prompt = cli_prompt
-
 
     def display_prompt(self):
         """
@@ -118,8 +118,6 @@ class CLI():
                 print("Invalid selection.\n\n")
                 return get_function()
 
-
         while self.display_prompt():
-
             function = get_function()
             function()
