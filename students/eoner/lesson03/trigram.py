@@ -1,6 +1,6 @@
-path = 'sherlock.txt'
+path = 'sherlock_small.txt'
 list_text = []
-white_list= list("1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
+white_list= list("1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'")
 
 
 #import file
