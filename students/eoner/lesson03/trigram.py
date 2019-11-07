@@ -1,4 +1,4 @@
-path = 'sherlock_small.txt'
+path = 'sherlock.txt'
 list_text = []
 white_list= list("1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")
 
@@ -8,15 +8,6 @@ def import_text():
     with open(path,'r') as f:
         text = f.read().replace("\n", " ")
     return text
-
-# #build dictionary
-# def build_dictionary(t):
-#     #sanitize
-#     #get rid of line breaks
-#     text=(t.replace("\n", " ").replace("--"," ").replace("(","").replace(")","").replace(",","").replace(".","").replace("-"," "))
-#     print(text)
-#     list_text=list(text.split(" "))
-#     print(list_text)
    
 #build dictionary try whitelist, check for valid cahracters, ignore the invalid ones
 def build_list(t):
