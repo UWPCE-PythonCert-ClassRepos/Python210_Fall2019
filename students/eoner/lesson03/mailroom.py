@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 
-donors = {'William Gates, III': [653784.49, 1000.50], 'Mark Z': [16396.10, 30000, 20000.30], 'Jeff B': [
-    877.33], 'Paul Allen': [708.42, 780, 444.20], 'Satya': [1000, 500.33]}
+donors = {'William Gates': [65784.49, 1000.50], 'Mark Zuckerberg': [163.10, 30000, 20000.30], 'Jeff B': [
+    877.33], 'Paul Allen': [767.42, 780, 444.20], 'Shantanu Narayen': [1000, 500.33, 3434,34]}
 
 # ex append donors['Mark Z'].append(2435353.23)
-#len(donors['Mark Z'])
+# len(donors['Mark Z'])
 # first donation on the list donors['Mark Z'][0]
-
 
 def create_report(donors):
     header = f'{"Donor Name":25}{"| Total Given":15}{"| Num Gifts":>15}{ "| Average Gift":>20}'
     print(header)
     print("_"*len(header))
-    for k, v in donors.items():
+    for k, v in donors.items(): #use keys?
         # print(k,v,len(v),sum(v), (sum(v)/len(v)))
+        # Need to sort!!!!!
+        # Add $ symbol!
         name, total, numGifts, AvgGift = (k, sum(v), len(v), (sum(v)/len(v)))
         print(f'{name:20} {total:{17}.2f} {numGifts:15} {AvgGift:{20}.2f}')
     entry_menu()
@@ -28,7 +29,7 @@ def entry_menu():
         print("reports selected")
         create_report(donors)
     elif top_menu == "q":
-        pass
+        break
     else:
         print("please enter a valid input")
         entry_menu()
