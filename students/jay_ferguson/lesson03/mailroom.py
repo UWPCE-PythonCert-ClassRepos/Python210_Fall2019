@@ -4,33 +4,18 @@ from cli import CLI
 
 cli = CLI()
 
-donors = [
-    {
-        'Donor Name': 'William Gates, III',
-        'Total Given': 653784.49,
-        'Num Gifts' : 2
-    },
-    {
-        'Donor Name': 'Mark Zuckerberg',
-        'Total Given': 16396.10,
-        'Num Gifts':  3
-    },
-    {
-        'Donor Name': 'Jeff Bezos',
-        'Total Given':  877.33,
-        'Num Gifts': 1
-    },
-    {
-        'Donor Name': 'Paul Allen',
-        'Total Given': 708.42,
-        'Num Gifts': 3
-    },
-    {
-        'Donor Name': 'Jay Ferguson',
-        'Total Given': 21.12,
-        'Num Gifts': 2
-    }
-]
+# TODO: Keep a record of donation amounts. Donations:[]
+# TODO: Refactor logic to account for this.
+
+donors = {
+    'William Gates': [653784.49],
+    'Mark Zuckerberg': [1600.10, 300.34],
+    'Jeff Bezos': [877.33],
+    'Paul Allen': [405, 678.23, 200.12],
+    'Jay Ferguson': [21.12]
+}
+
+
 
 @cli.add_option
 def send_thank_you():
@@ -42,7 +27,7 @@ def send_thank_you():
     :return: None
     """
 
-    #TODO: Most of the nested structures here should be discrete functions.
+    # TODO: Most of the nested structures here should be discrete functions or a dict mapping of functions.
 
     message = """Dear {first_name},
     
@@ -52,9 +37,6 @@ def send_thank_you():
      
      The UW Python Program"""
 
-    # Generate a list of current donor names to compare against
-    donor_names = [i['Donor Name'] for i in donors]
-
     prompt = True  # Set to false to stop prompting and exit.
     while prompt:
         try:
@@ -63,40 +45,38 @@ def send_thank_you():
             print('\n')
             return None
 
-        if user_input == 'list':
-            for name in donor_names: print(name)
+        if user_input.lower() == 'list':
+            for name in donors.keys():
+                print(name)
             print('\n')
 
         else:
-            #Find whether the name is in the list:
+            # Find whether the name is in the list:
 
             found = False  # Set to True to skip data input
 
-            for name in donor_names:
-                if user_input.lower() in name.lower():
-                    print (message.format(first_name=name.split(' ')[0]))
-                    print('\n')
-                    prompt = False
-                    found = True
-                    return None
-                else:
-                    donor_name = user_input.title()
+            if user_input.title() in donors.keys():
+                donation_amount = input('Donation Amount: ')
+                # Sanitize input a bit
+                donation_amount = round(float(donation_amount.replace('$', '').replace(',', '')), ndigits=2)
+                donors[user_input].append(donation_amount)
 
-            if not found: # Start prompting for data and write it to the donors global.
-                total_given = input('Donation Amount: ')
-                #Sanitize our input a bit
-                total_given = round(float(total_given.replace('$', '')), ndigits=2)
-                num_gifts = 1
+                print(message.format(first_name=user_input.title().split(' ')[0]))
+                print('\n')
+                prompt = False
+                found = True
+                return None
+            else:
+                donor_name = user_input.title()
 
-                new_donor = {
-                    'Donor Name': donor_name,
-                    'Total Given': total_given,
-                    'Num Gifts': num_gifts
-                }
+            if not found:  # Start prompting for data and write it to the donors global.
+                donation_amount = input('Donation Amount: ')
+                # Sanitize our input a bit
+                donation_amount = round(float(donation_amount.replace('$', '').replace(',', '')), ndigits=2)
 
-                donors.append(new_donor)
+                donors[user_input] = [donation_amount]
 
-                print (message.format(first_name=donor_name.split(' ')[0]))
+                print(message.format(first_name=donor_name.split(' ')[0]))
                 print('\n')
                 prompt = False
 
@@ -107,31 +87,29 @@ def generate_report():
     Generate a report. And print it.
     :return: None
     """
-    sorted_donors = sorted(donors, key=lambda i: i['Total Given'], reverse=True)  # Hooray lambda fuctions!
-    spacing = 20  # Blank space to pad rows with
-    header_keys = list(donors[0].keys())
-    header_keys.append('Average Gift')
+    sorted_donors = sorted(donors, key=lambda i: sum(donors[i]), reverse=True)  # Hooray lambda fuctions!
 
-    # Calculate average donation and append it to the sorted_donors dicts
-    for i in sorted_donors:
-        average_donation = round(i['Total Given'] / i['Num Gifts'], ndigits=2)
-        i['Average Gift'] = average_donation
-
+    header_keys = ['Donor Name', 'Total Given', 'Number Gifts', 'Average Gift']
     header = '\n' + ('|  {:<20}' * len(header_keys))
     formatted_header = header.format(*header_keys)
     row_template = '|  {:<20}|  ${:<20}|  {:<20}|   ${:<20}'
     print(formatted_header)
-    divider = '-'* len(formatted_header)
+    divider = '-' * len(formatted_header)
     print(divider)
 
     for i in sorted_donors:
         row = []
-        for key in header_keys:
-            row.append(i[key])
+        row.append(i)
+        # Calculate average donation and append it to the sorted_donors dicts
+        total_donation = sum(donors[i])
+        average_donation = total_donation / len(donors[i])
+        row.append(round(total_donation, ndigits=2))
+        row.append(len(donors[i]))
+        row.append(round(average_donation, ndigits=2))
         print(row_template.format(*row))
 
     print('')
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     cli.run_cli()
