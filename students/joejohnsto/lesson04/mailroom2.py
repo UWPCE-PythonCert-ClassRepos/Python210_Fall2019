@@ -8,23 +8,34 @@ Mailroom Part I
 """
 
 import sys
+import os
 
-donor_db = [('Bill Gates', [4000.32, 35.00, 17899.99]),
-            ('Oprah Winfrey', [9999.99, 9999.99]),
-            ('Rob Schneider', [400.00, 55.00, 800.00]),
-            ('Donald Trump', [0.32, 5.00]),
-            ('Denise Richards', [6040.77])]
+donor_db = {'Bill Gates': [4000.32, 35.00, 17899.99],
+            'Oprah Winfrey': [9999.99, 9999.99],
+            'Rob Schneider': [400.00, 55.00, 800.00],
+            'Donald Trump': [0.32, 5.00],
+            'Denise Richards': [6040.77]
+            }
 
 prompt = "\n".join(("\nWelcome to the mailroom!",
                     "Please choose from below options:",
-                    "1 - Send a Thank You",
+                    "1 - Enter a new donation and send a thank you",
                     "2 - Create a Report",
-                    "3 - quit",
+                    "3 - Send Thank Yous to All Donors",
+                    "4 - quit",
                     ">>> "))
 
-
-def sort_key(donor):
-    return sum(donor[1])
+def build_ty(totals=False):
+    line1 = 'Dear Mr/Mrs {name},\n\n' \
+          + 'Thank you so much for your donation of ${last:.2f}!'
+    line2 = 'This brings your total lifetime donations to ${total:.2f}!'
+    line3 = 'We here at RLC (Random Local Charity) really appreciate it!\n\n' \
+          + 'Sincerely,\n\nBob Saget, CEO of RLC\n'
+    if totals:
+        ty_note = '\n'.join([line1, line2, line3])
+    else:
+        ty_note = '\n'.join([line1, line3])
+    return ty_note
 
 
 def thank_you():
@@ -33,12 +44,13 @@ def thank_you():
     response = 'list'
     # get donor name from user, display donor list if asked
     while response == 'list':
-        response = input('\nWhat is the full name of the donor to whom you would like to '
-                         + 'send a thank you?\nType "list" for a list of current donors '
+        response = input('\nWhat is the full name of the donor to whom you '
+                         + 'would like to send a thank you?\nAlternatively, '
+                         + 'type "list" for a list of current donors '
                          + 'or "q" to quit back to main menu.\n>>> ')
         if response == 'list':
-            for x, y in donor_db:
-                print(x)
+            for _ in donor_db.keys():
+                print(_)
         elif response == 'q':
             main()
         else:
@@ -54,22 +66,20 @@ def thank_you():
     if amount == 'q':
         main()
     # add donor and new donation to database under donor name
-    if not [x for x, y in donor_db if x == name]:
-        donor_db.append((name, []))
-    idx = [x for x, y in donor_db].index(name)
-    donor_db[idx][1].append(float(amount))
+    if name in donor_db.keys():
+        donor_db[name].append(float(amount))
+    else:
+        donor_db.update({name: [float(amount)]})
     # format an email thank you and print to the terminal
-    ty_note = 'Dear Mr/Mrs {},\n\n' \
-              + 'Thank you so much for your donation of ${:.2f}!\n' \
-              + 'We here at RLC (Random Local Charity) really appreciate it!\n\n' \
-              + 'Sincerely,\n\nBob Saget, CEO of RLC\n'
-    print(ty_note.format(name, float(amount)))
+    donor = {'name': name, 'last': float(amount)}
+    ty_note = build_ty()
+    print(ty_note.format(**donor))
 
 
 def create_report():
     """Print donor database, sorted by total donation amount"""
     
-    sorted_db = sorted(donor_db, key=sort_key, reverse=True)
+    sorted_db = sorted(donor_db.items(), key=lambda x: sum(x[1]), reverse=True)
     # build header line for report
     header = 'Donor Name          | Total Given | Num Gifts | Average Gift'
     separator = '-'*len(header)
@@ -85,14 +95,32 @@ def create_report():
     for i in range(len(sorted_db)):
         print(body[i])
     
-    
+
+def write_letters():
+    # make directory for letters
+    try:
+        folder = os.mkdir(os.getcwd() + '\\letters')
+    except FileExistsError:
+        folder = os.getcwd() + '\\letters'
+    # with open thank you (donor name_date)
+    for _ in donor_db:
+        ty_info = {'name': _, 
+                   'last': donor_db[_][-1],
+                   'total': sum(donor_db[_])}
+        filename = folder + '\\' + ty_info['name'].replace(' ', '_') + '.txt'
+        with open(filename, 'w') as letter:
+            ty_note = build_ty(True)
+            letter.write(ty_note.format(**ty_info))
+
+
 def main():
     """Prompt user to choose next action"""
     
     while True:
         response = input(prompt)  # continuously collect user selection
         # now redirect to feature functions based on the user selection
-        user_select = {'1': thank_you, '2': create_report, '3': sys.exit}
+        user_select = {'1': thank_you, '2': create_report, '3': write_letters, 
+                       '4': sys.exit}
         selection = user_select.get(response, 'Not a valid option!')
         try:
             selection()

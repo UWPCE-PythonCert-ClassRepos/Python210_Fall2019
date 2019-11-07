@@ -42,9 +42,9 @@ print(newDict)
 
 # Sets 1
 
-s2 = set(range(0,20,2))
-s3 = set(range(0,20,3))
-s4 = set(range(0,20,4))
+s2 = set(range(0,21,2))
+s3 = set(range(0,21,3))
+s4 = set(range(0,21,4))
 
 print(s2, '\n', s3, '\n', s4)
 
