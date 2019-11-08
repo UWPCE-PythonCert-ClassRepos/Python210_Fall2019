@@ -46,8 +46,7 @@ def build_dictionary(l):
     for i in range(len(final_list)-2):
         if (final_list[i],final_list[i+1]) not in l:
             #if key pair doesn't exist, update dic
-            l.update({(final_list[i],final_list[i+1]):([final_list[i+2]])}) 
-            pass
+            l.update({(final_list[i],final_list[i+1]):([final_list[i+2]])})
         else:
             print(i)
             #if in the dic keys, append to the value
