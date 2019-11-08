@@ -4,7 +4,7 @@ Created on Sun Oct 27 19:50:20 2019
 
 @author: joejo
 
-Mailroom Part II
+Mailroom Part III
 """
 
 import sys
@@ -24,6 +24,22 @@ prompt = "\n".join(("\nWelcome to the mailroom!",
                     "3 - Send Thank Yous to All Donors",
                     "4 - quit",
                     ">>> "))
+
+def get_amount(name):
+    amount = input(f'Enter the amount that {name} donated or type "q" to quit back to the main menu: ')
+    if amount == 'q':
+        main()
+    # add donor and new donation to database under donor name
+    try:
+        if name in donor_db.keys():
+            donor_db[name].append(float(amount))
+        else:
+            donor_db.update({name: [float(amount)]})
+    except ValueError:
+        print("You must enter either 'q' or a number!")
+        get_amount(name)
+    return amount
+
 
 def build_ty(totals=False):
     line1 = 'Dear Mr/Mrs {name},\n\n' \
@@ -62,18 +78,11 @@ def thank_you():
                 response = 'list'
     name = response.title()
     # get donation amount
-    amount = input(f'Enter the amount that {name} donated or type "q" to quit back to the main menu: ')
-    if amount == 'q':
-        main()
-    # add donor and new donation to database under donor name
-    if name in donor_db.keys():
-        donor_db[name].append(float(amount))
-    else:
-        donor_db.update({name: [float(amount)]})
+    amount = get_amount(name)
     # format an email thank you and print to the terminal
     donor = {'name': name, 'last': float(amount)}
     ty_note = build_ty()
-    print(ty_note.format(**donor))
+    print('\n' + ty_note.format(**donor))
 
 
 def create_report():
@@ -85,11 +94,10 @@ def create_report():
     separator = '-'*len(header)
     bodyline = '{:20} ${:11.2f}   {:9d}  ${:12.2f}'
     # build the body of the report; a list of donors and info about their gifts
-    body = ['']*len(sorted_db)
-    for i in range(len(sorted_db)):
-        body[i] = bodyline.format(sorted_db[i][0], sum(sorted_db[i][1]),
-                                  len(sorted_db[i][1]),
-                                  sum(sorted_db[i][1])/len(sorted_db[i][1]))
+    body = [bodyline.format(sorted_db[i][0], sum(sorted_db[i][1]),
+                            len(sorted_db[i][1]),
+                            sum(sorted_db[i][1])/len(sorted_db[i][1]))
+            for i in range(len(sorted_db))]
     # print out the report
     print(header, separator, sep='\n')
     for i in range(len(sorted_db)):
@@ -103,10 +111,10 @@ def write_letters():
     except FileExistsError:
         folder = os.getcwd() + '\\letters'
     # with open thank you (donor name_date)
-    for _ in donor_db:
-        ty_info = {'name': _, 
-                   'last': donor_db[_][-1],
-                   'total': sum(donor_db[_])}
+    for k,v in donor_db.items():
+        ty_info = {'name': k, 
+                   'last': v[-1],
+                   'total': sum(v)}
         filename = folder + '\\' + ty_info['name'].replace(' ', '_') + '.txt'
         with open(filename, 'w') as letter:
             ty_note = build_ty(True)
