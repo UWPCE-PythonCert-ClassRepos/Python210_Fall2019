@@ -1,26 +1,26 @@
-path = 'sherlock_small.txt'
+path = 'sherlock.txt'
 list_text = []
+# list of excepted characters
 white_list= list("1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'")
 dictionary_output = {}
-# final_list = []
 
-#import file
+#import file, clean up line breaks
 def import_text():
     with open(path,'r') as f:
         text = f.read().replace("\n", " ")
     return text
    
-#build dictionary try whitelist, check for valid cahracters, ignore the invalid ones
+#build dictionary try whitelist, check for valid characters, ignore the invalid ones
 def build_list(t):
     print(text)
     list_text=list(text.split(" "))
     #print(list_text)
     return list_text
 
-#try whitelist, check for valid cahracters, ignore the invalid ones
+#try whitelist, check for valid characters, ignore the invalid ones
 def wordscan(l):
     f = []
-    #look at each index of each item in the list, if it matches add to a new oredered list
+    #look at each index of each item in the list, if it matches add to a new orcsdered list
     
     for i in l:
         new =""
@@ -39,19 +39,18 @@ def wordscan(l):
     return f
 
 def build_dictionary(l):
-    #clean up: if the key exists :
-    # In [253]: ('i','was') in source_dic                                                                                                       
-
     l = {}
     for i in range(len(final_list)-2):
         if (final_list[i],final_list[i+1]) not in l:
-            #if key pair doesn't exist, update dic
+            #if key pair doesn't exist, update dic so we don't overwrite the value
             l.update({(final_list[i],final_list[i+1]):([final_list[i+2]])})
+
+            #what if the value already exists in the list? keep multiples or clean up?
+        elif (final_list[i+2]) in l[(final_list[i], final_list[i+1])]:
+            pass
         else:
-            print(i)
-            #if in the dic keys, append to the value
+            #if in the dic keys, append to the value            
             l[(final_list[i], final_list[i+1])].append(final_list[i+2])
- 
     print(l)
     return l
 
