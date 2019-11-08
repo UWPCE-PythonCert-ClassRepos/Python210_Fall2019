@@ -1,7 +1,8 @@
 path = 'sherlock_small.txt'
 list_text = []
 white_list= list("1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'")
-
+dictionary_output = {}
+# final_list = []
 
 #import file
 def import_text():
@@ -18,7 +19,7 @@ def build_list(t):
 
 #try whitelist, check for valid cahracters, ignore the invalid ones
 def wordscan(l):
-    build_list = []
+    f = []
     #look at each index of each item in the list, if it matches add to a new oredered list
     
     for i in l:
@@ -28,14 +29,34 @@ def wordscan(l):
             if i in white_list:
                 new += i
             else:
-                build_list.append(new)
+                f.append(new)
                 new=""                
-        build_list.append(new)
+        f.append(new)
     
-    #still inserting empty elements in the list, crapp yway of cleaning it up
-    build_list = ' '.join(build_list).split() 
-    print(build_list)
+    #still inserting empty elements in the list, crap way of cleaning it up
+    f = ' '.join(f).split() 
+    print(f)
+    return f
+
+def build_dictionary(l):
+    #clean up: if the key exists :
+    # In [253]: ('i','was') in source_dic                                                                                                       
+
+    l = {}
+    for i in range(len(final_list)-2):
+        if (final_list[i],final_list[i+1]) not in l:
+            #if key pair doesn't exist, update dic
+            l.update({(final_list[i],final_list[i+1]):([final_list[i+2]])}) 
+            pass
+        else:
+            print(i)
+            #if in the dic keys, append to the value
+            l[(final_list[i], final_list[i+1])].append(final_list[i+2])
+ 
+    print(l)
+    return l
 
 text = import_text()
 list_text = build_list(text)
-wordscan(list_text)
+final_list = wordscan(list_text)
+source_dic = build_dictionary(final_list)
