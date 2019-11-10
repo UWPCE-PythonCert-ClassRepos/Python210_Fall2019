@@ -52,7 +52,7 @@ def print_new(seq):
     line_length = 0
     for word in seq:
         line_length += len(word)
-        if line_length <= 70:
+        if line_length < 60:
             print(word + " ", end="")
         else:
             print(word + " ")
