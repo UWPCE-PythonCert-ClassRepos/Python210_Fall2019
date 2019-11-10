@@ -10,6 +10,7 @@ from random import choice
 
 file_name = "Sherlock1.txt"
 
+
 def read_file(file):
     with open(file, "r") as f:
         return f.read()
@@ -36,16 +37,13 @@ def get_trigrams(words):
 def build_new(data):
     new_words_list = []
     rand_start_key = choice(list(data.keys()))
-
     new_words_list.append(rand_start_key[0])
     new_words_list.append(rand_start_key[1])
     new_words_list.append(choice(data[rand_start_key]))  # Random if more than one value
-
     for i in range(100):
         new_pair = (new_words_list[-2], new_words_list[-1])
         new_follower = choice(data[new_pair])
         new_words_list.append(new_follower)
-
     return new_words_list
 
 
