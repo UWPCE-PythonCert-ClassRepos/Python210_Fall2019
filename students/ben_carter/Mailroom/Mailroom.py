@@ -39,7 +39,11 @@ print {____:>14}
 6) exit program input uses sys.exit to close mailroom
 
 """
-
+"""
+MAILROOM PART 2
+add new Send Letter to all donors function that writes a
+text file to HDD for each donor on the list. 
+"""
 
 donors = {
         "Bernie Sanders": [65234.82, 143.25],
@@ -55,7 +59,8 @@ prompt = "\n".join(("\nMailroom Script, Welcome!",
                     "Please Enter 1, 2, or 3 to select an option",
                     "1 ) Send a thank you",
                     "2 ) Generate a donations report",
-                    "3 ) Exit the script",
+                    "3 ) Send a thank you letter to all donors", #creates a thankyou letter file and saves it for all donors e.g. Carl_segan.txt
+                    "4 ) Exit the script",
                     " "))
 
 
@@ -69,6 +74,8 @@ def mailroom():
         elif user == "2":
             create_report()
         elif user == "3":
+            all_donors()
+        elif user == "4":
             exit_program()
         else:
             print("The input received was not valid. Please input 1, 2, or 3.")    
@@ -150,6 +157,11 @@ def create_report():
         formated_avg_donation = ("{:.2f}".format(avg_donation))
         print(f"{key:<15} ${formated_total_donation:>17} {num_donations:>19} ${formated_avg_donation:>19}")
         
+def all_donors():
+    for name in donors:
+        print(name, donors[name])
+
+
     
 def exit_program():
     """This function closes the program"""
