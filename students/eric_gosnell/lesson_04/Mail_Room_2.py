@@ -53,7 +53,6 @@ INVALID_SELECTION_MESSAGE = "Invalid selection!"
 
 def header_rows():
     """ Returns multi-row formatted report header string """
-
     col_head = ["Donor Name", "Total Given", "Number Donations", "Average Donation"]
     report_title = ["*" * 11, "Donation Summary Report", "*" * 11]
     rows = ("\n{:>15s}{:^40s}{:<20s}\n".format(*report_title)
