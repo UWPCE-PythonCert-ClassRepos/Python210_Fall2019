@@ -22,13 +22,6 @@ thank_you_message = ("Thank you {}.\n"
                      "\t\t\tSincerely,\n"
                      "\t\t\t\t-The Team\n")
 
-donor_error_message = ("ERROR! Donor name not found!\n"
-                       "You must first add donor and then "
-                       "add donation to donor before sending letter!\n")
-
-donation_error_message = ("ERROR! Donor name not found!\n"
-                          "You must first add donor before adding donation!\n")
-
 main_prompt = ("\n"
                "       Main Menu\n"
                "------------------------\n"
@@ -100,7 +93,6 @@ def single_donor_letter():
     name = input("\n" + NAME_PROMPT)
     if name not in donor_db:
         print("\n" + DONOR_NOT_FOUND_MESSAGE.format(name))
-        print("103")
     else:
         print("\n" + DONOR_FOUND_MESSAGE.format(name))
         donation = float(input("\n" + DONATION_PROMPT))
