@@ -117,13 +117,13 @@ def single_donor_letter():
         print(DONOR_FOUND.format(name))
         donation = get_valid_donation()
         DONOR_DB[name].append(donation)
+        file_name = name + ".txt"
         try:
-            file_name = name + ".txt"
             with open(file_name, "w") as file:
                 file.write(THANK_YOU_EMAIL.format(name, donation))
-        except IOError:
+        except IOError as e:
             # Problem writing to file
-            print(IO_ERROR)
+            print(IO_ERROR.format(file_name, str(e)))
             exit_func()
         else:
             print(DONATION_SUCCESS.format(donation, name))
