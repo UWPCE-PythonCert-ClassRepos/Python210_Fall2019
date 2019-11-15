@@ -42,15 +42,15 @@ DONATION_PROMPT = "\nEnter new donation amount >"
 CONTINUE_PROMPT = "\nPress enter to continue..."
 DONOR_FOUND = "\n{} found."
 DONOR_NOT_FOUND = "\n{} not in database."
-DONOR_SUCCESS = "{} successfully added to database."
-DONOR_EXISTS = "{} already in database!"
+DONOR_SUCCESS = "\n{} successfully added to database."
+DONOR_EXISTS = "\n{} already in database!"
 DONATION_SUCCESS = "\nDonation of ${:,.2f} for {} successfully added."
 INVALID_SELECTION = "\nInvalid selection!"
 INVALID_DONATION = "\nInvalid input! Enter numbers only."
 NEGATIVE_DONATION = "\nInvalid input! Enter number greater than zero."
 INVALID_NAME = "\nInvalid input! Enter text only."
 SAVED_TO_DISK = "\nThe following message was saved to file: '{}'...\n"
-IO_ERROR = "IOError! Problem with {}: {}."
+IO_ERROR = "\nIOError! Problem with {}: {}."
 
 
 def header_rows():
@@ -105,9 +105,9 @@ def add_donor():
     name = get_valid_name()
     if name not in DONOR_DB:
         DONOR_DB[name] = []
-        print("\n" + DONOR_SUCCESS.format(name))
+        print(DONOR_SUCCESS.format(name))
     else:
-        print("\n" + DONOR_EXISTS.format(name))
+        print(DONOR_EXISTS.format(name))
 
 
 def single_donor_letter():
