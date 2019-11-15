@@ -179,6 +179,7 @@ def print_report():
 
 # ---------------     Menu operations     --------------- #
 
+
 def menu_selection(prompt, switch):
     """ Multi-use menu selection function """
     while True:
