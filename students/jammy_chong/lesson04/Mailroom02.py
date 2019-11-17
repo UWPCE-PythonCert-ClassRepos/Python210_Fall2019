@@ -17,7 +17,9 @@ def add_donor(name, total=0, gifts=0, average=0):
     if name not in donor_list:
         if gifts > 0:
             average = round(total/gifts, 2)
-        donor_list[name] = {'total_given':round(total, 2), 'num_gifts':int(gifts), 'average_gift':average}
+        donor_list[name] = {'total_given': round(total, 2),
+                            'num_gifts':int(gifts),
+                            'average_gift':average}
 
 def create_donor_list():
     add_donor("Paul Allen", 708.42, 3)
@@ -28,11 +30,11 @@ def create_donor_list():
 
 def create_letter(name,amount,gifts,average):
     letter = (f"Dear {name},\n\n\tThank you for your very kind donation of ${amount}.\n\n\
-    \tYou have donated {gifts} times with an average of ${average} per donation.\n\n\
-    \tIt will be put to very good use.\n\n\t\t\tSincerely,\n\t\t\t\t-The Team.")
+             \tYou have donated {gifts} times with an average of ${average} per donation.\n\n\
+             \tIt will be put to very good use.\n\n\t\t\tSincerely,\n\t\t\t\t-The Team.")
     return letter
 
-#Menu Actions:
+# Menu Actions:
 
 def send_thank_you():
     donor_input = ""
@@ -59,10 +61,8 @@ def send_thank_you():
         donor_list[donor_input]['average_gift'] = donor_list[donor_input]['total_given']/donor_list[donor_input]['num_gifts']
 
         print(create_letter(donor_input,donation_amount,donor_list[donor_input]['num_gifts'],\
-        donor_list[donor_input]['avereage_gift']))
+        donor_list[donor_input]['average_gift']))
         donor_input = "q"
-
-        #main_menu(main_dispatch)
 
 def create_report():
     #Using lambda to access values from list of dictionaries
@@ -86,22 +86,20 @@ def send_thank_you_all():
             f.write(string_letter)
             f.close()
 
-
-
 def quit():
     print("Thank you for using Mailroom.\nExiting Program\n")
 
-
 main_prompt = ("\nYou are in the main menu, Choose an action to perform:\n"
-"1: Send a Thank You to a single donor.\n"
-"2: Create a Report.\n"
-"3: Send letters to all donors.\n"
-"q: Quit\n")
+               "1: Send a Thank You to a single donor.\n"
+               "2: Create a Report.\n"
+               "3: Send letters to all donors.\n"
+               "q: Quit\n")
 
-main_dispatch = {"1": send_thank_you, "2":create_report, "3":send_thank_you_all, "q":quit}
+main_dispatch = {"1": send_thank_you,
+                "2":create_report,
+                "3":send_thank_you_all,
+                "q":quit}
 
 if __name__ == '__main__':
-    #main_menu()
     create_donor_list()
-    #create_report()
     main_menu(main_dispatch)
