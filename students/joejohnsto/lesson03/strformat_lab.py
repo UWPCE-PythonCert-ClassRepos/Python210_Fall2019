@@ -55,3 +55,5 @@ for i in range(len(wines)):
 # tuple with 10 consecutive numbers, printed in columns of width 5
 t2 = (1,2,3,4,5,6,7,8,9,10)
 print('{0:5}{1:5}{2:5}{3:5}{4:5}{5:5}{6:5}{7:5}{8:5}{9:5}'.format(*t2))
+#a better way!!!
+print(('{:5}'*len(t2)).format(*t2))
