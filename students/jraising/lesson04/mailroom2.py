@@ -19,7 +19,7 @@ def menu_selection(prompt, disp_dir):
         response = input(prompt)
         if disp_dir[response]() == "Exit menu":
             break
- 
+
 def thankYou():
     fullName = input("please enter the full name: ")
     if fullName == "list":
@@ -40,6 +40,14 @@ def report():
     for k,v in donors.items():
         print(f'{k:20} {sum(v):{25}.2f} {len(v):25} {(sum(v)/len(v)):{25}.2f}') 
         
+def letter():
+    for k,v in donors.items():
+#         print(f'{k}, Thank you very much for your donation of ${sum(v):.2f}')
+         with open(f'{k}.txt', 'w') as file:
+             file.write(f'Subject: Thank You \n Dear {k}, \n Thank you very much for your donation of ${sum(v):.2f} ')
+             
+        
+    
 
 def quit():
     print("You are quitting the menu")
@@ -49,10 +57,11 @@ def quit():
 #    menu_selection(thankYou_prompt,thankYou_dispatch)
     
        
-main_prompt = (" Select 1 to Send a Thank You, 2 to Create a Report or q to quit >> ")
+main_prompt = (" Select 1 to donate, 2 to Create a Report, 3 to Send a Thank You, or q to quit >> ")
 
 main_dispatch = {"1" : thankYou,
                  "2" : report,
+                 "3" : letter,
                  "q" : quit
                 }
 
