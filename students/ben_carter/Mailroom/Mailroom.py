@@ -75,6 +75,19 @@ def mailroom():
 
 def build_email(user, donated):
     """This function generates a thank you email """
+    print(
+          """  
+            {}
+           
+            Thank you for your wonderful donation of ${:.2f}!
+            As you know, dismantaling the structures of global capitalism is
+            quite expensive, with your help we are one step closer to our goals!
+           
+            Many thanks!
+           
+            Center for the prolonged excistence of literally any life on planet earth.
+           
+            """.format(user, donated))
     return(
           """  
             {}
@@ -109,27 +122,38 @@ def send_thank_you():
     option
     """
     while True:
-        user = input("Enter the full name of the donor you want to email, "
-                     "\nor type 'list' to see a list of current donors"
-                     "\nor type 'q' to return to previous menu:")
-        if user == "q":
-            break
-        elif user == "list":
-            list_donors()
-        elif user in donors:
-            donation = input("Enter the donation amount or 'q' to exit: ")
-            if donation == "q":
+        try:
+            user = input("Enter the full name of the donor you want to email, "
+                         "\nor type 'list' to see a list of current donors"
+                         "\nor type 'q' to return to previous menu:")
+            if user == "q":
                 break
-            donated = float(donation)
-            donors[user].append(donated)
-            build_email(user, donated)
-        else:
-            donation = input("{} not found in donors, Adding donor, enter a donation amount: ".format(user))
+            elif user == "list":
+                list_donors()
+            elif user in donors:
+                donation = input("Enter the donation amount or 'q' to exit: ")
+                if donation == "q":
+                    print("Break hit")
+                    break
+                else:
+                    donated = float(donation)
+                    donors[user].append(donated)
+                    print("build email right after this")
+                    build_email(user, donated)
+                    
+            else:
+                donation = input("{} not found in donors, Adding donor, enter a donation amount: ".format(user))
+                donated = float(donation)
+                donors[user] = [donated]
+                build_email(user, donated)
+        except ValueError:
+            #print("Value Error: The donation amount must be a integer, enter a donation amount (e.g. 100 or 25.50):")
+            donation = input("Value Error: The donation amount must be a integer, enter a donation amount (e.g. 100 or 25.50):")
             donated = float(donation)
             donors[user] = [donated]
             build_email(user, donated)
-       
-
+           
+           
 def create_report():
     """This function generates a formated report of all donors and some
     information regarding their donations"""
@@ -148,19 +172,22 @@ def create_report():
         formated_total_donation = ("{:.2f}".format(total_donation))
         formated_avg_donation = ("{:.2f}".format(avg_donation))
         print(f"{key:<15} ${formated_total_donation:>17} {num_donations:>19} ${formated_avg_donation:>19}")
-       
+     
+        
 def all_donors():
     for name, amount in donors.items():
         total_donation = sum(amount)
         #F = open("{}",'w')
         text = build_email(name, total_donation)
         create_new_file(name, text)
+        
 
 def create_new_file(name, text):
     file = open(name + ".txt", "w")
     file.write(text)
     file.close()
    
+    
 def exit_program():
     """This function closes the program"""
     print("Thank you for using the mailroom")
