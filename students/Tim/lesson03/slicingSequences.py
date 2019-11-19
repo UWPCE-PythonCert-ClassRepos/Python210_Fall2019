@@ -4,10 +4,11 @@ Created on Mon Oct 28 16:17:40 2019
 
 @author: TimLaptop
 """
+import copy as copy
 
 def exchange_first_last(seq):
-    new_seq = seq[-1] + seq[1:len(seq)-1] + seq[:1]
-    return new_seq
+   return copy((seq[-1] + seq[1:len(seq)-1] + seq[:1]))
+   
 
 def remove_every_other_item(seq):
     new_seq = seq[0::2]
