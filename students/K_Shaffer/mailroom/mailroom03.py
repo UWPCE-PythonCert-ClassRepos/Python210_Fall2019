@@ -14,12 +14,13 @@ def main(donors):
 
 def user_input(donors):
     selection = ''
-    while selection != '3':
+    while selection != '5':
         selection = input('\nPlease select type one of following commands: \n' 
                           '1 : Send a single Thank You\n' 
                           '2 : Create a Report\n'
                           '3 : Send letters to all donors\n'
-                          '4 : QUIT\n ')
+                          '4 : Print Large donors\n'
+                          '5 : QUIT\n ')
         if selection == '1':
             send_thank_you(donors)
         elif selection == '2':
@@ -27,21 +28,28 @@ def user_input(donors):
         elif selection == '3':
             send_all_thank_yous(donors)
         elif selection == '4':
+            print_large_donors(donors)
+        elif selection == '5':
             print('QUITTING')
         else:
             print('INVALID SELECTION')
 
 
 def send_thank_you(donors):
-    donor = ''
     done = False
     while not done:
-        donor = input('\n type \'list\' to show list of names or enter donor\'s name: ')
+        try:
+            donor = str(input('\n type \'list\' to show list of names or enter donor\'s name: '))
+        except TypeError:
+            print("Incorrect name entered")
         if donor == 'list':
             for entry in donors:
                 print(entry)
         else:
-            donation = float(input('How much did %s donate?' % donor))
+            try:
+                donation = float(input('How much did %s donate?' % donor))
+            except TypeError:
+                print("Incorrect value entered")
             if donor not in donors:
                 donors[donor] = (donation, 1)
             else:
@@ -50,12 +58,21 @@ def send_thank_you(donors):
                   ' Local Non-Profit \n'.format(donor, donation))
             done = True
 
+def print_large_donors(donors):
+    large_donors = [donor for donor in donors if donors[donor][0] >= 1000]
+    for donor in large_donors:
+        print('{:s}, is a large donor, they contributed ${:.2f}'.format(donor,donors[donor][0]))
+
 def create_report(donors):
     print('{:<20}|{:^13}|{:^11}|{:^14}'.format('Donor Name', 'Total Given', 'Num Gifts', 'Average Gift'))
     print('-'*60)
     for donor in donors:
-        print('{:<20} ${:>12.2f}{:>11}  ${:>12.2f}'.format(donor, donors[donor][0], donors[donor][1],
-                                                      donors[donor][0]/donors[donor][1]))
+        try:
+            print('{:<20} ${:>12.2f}{:>11}  ${:>12.2f}'.format(donor, donors[donor][0], donors[donor][1],
+                                                          donors[donor][0]/donors[donor][1]))
+        except IndexError:
+            print("Sorry, some data is not complete for" + donors[donor][0])
+
 def send_all_thank_yous(donors):
             for donor in donors:
                 f = open(donor+'_letter.txt', 'w+')
