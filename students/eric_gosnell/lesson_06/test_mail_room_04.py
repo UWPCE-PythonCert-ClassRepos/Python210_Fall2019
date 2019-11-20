@@ -4,7 +4,6 @@ Lesson 06 - pytest module for mail room 04 main module logic
 11.19.2019
 """
 
-
 import mail_room_04 as m4
 
 # -------------    Database Tests    ------------- #
