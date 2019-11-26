@@ -138,9 +138,9 @@ class Donors():
         :param donor: Donor object
         :return: None
         """
-
         self.donors[donor.name] = donor.donations
 
     def sort_donors(self, ):
+        pass
 
 
