@@ -1,0 +1,12 @@
+Dear John Smith,
+
+	Thank you for your very kind donation of $1500.00.
+
+	You have donated 2 times with an average of $1350.00 per donation.
+
+	The total amount you donated is $2700.00.
+
+	It will be put to very good use.
+
+			Sincerely,
+				-The Team.
