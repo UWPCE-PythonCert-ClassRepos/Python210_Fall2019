@@ -25,13 +25,16 @@ def donor_letter(donor_raw,donor_choice):
     print("thank you {} for your most recent donation of {}".format(donor_choice, donations_output))
 
 def send_many(donor_raw):
-    for k in donor_raw:
-        for k,v  in donor_raw.items():
-            with open(k, "w") as f:
-                length = (len(v)-1)
-                f.write(("thank you {} for your most recent donation of {}".format(k, v[length])))
-                f.close()
-    print("letters sent!")
+    try:
+        for k in donor_raw:
+            for k,v  in donor_raw.items():
+                with open(k, "w") as f:
+                    length = (len(v)-1)
+                    f.write(("thank you {} for your most recent donation of {}".format(k, v[length])))
+                    f.close()
+        print("letters sent!")
+    except:
+        print("File issue, please check input")
 
 
 for key, value in donor_raw.items():

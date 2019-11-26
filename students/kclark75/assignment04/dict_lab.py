@@ -8,28 +8,30 @@ Created on Sun Nov 10 08:22:00 2019
 contact = {'name': 'chris', 'city': 'Seattle', 'cake': 'strawberry'}
 
 
-def menu():
-    """
-    Menu: Could not get to work won't pass user choice in correct 
-    form
-    """
-    usr_input = input("Please select an action:\n"
-                        "1. Add fruit\n"
-                        "2. Delete last item\n"
-                        "3. Display keys\n"
-                        "4. check for cake\n"
-                        "5. check for mango\n"
-                        "6. To exit\n"
-                        ">>>")
-    menu_dict = {
-            '1': 'add_fruit', '2': 'delete_last_item()',
-            '3': 'display_keys()', '4': 'check_for_cake()',
-            '5': 'check_for_mango()', '6': 'exit()'
-            }
+def menu_dict():
+    while True:
+        """
+        Menu: 
+        """
+        usr_input = input("Please select an action:\n"
+                            "1. Add fruit\n"
+                            "2. Delete last item\n"
+                            "3. Display keys\n"
+                            "4. check for cake\n"
+                            "5. check for mango\n"
+                            "6. To exit\n"
+                            ">>>")
+        menu_dict= {
+                '1': add_fruit, '2': delete_last,
+                '3': display_keys, '4': check_for_cake,
+                '5': check_for_mango, '6': sys.exit,
+                }
+        selection = menu_dict[usr_input]
+        try:
+            selection()
+        except TypeError:
+            print(selection)
 
-    selection = usr_input.strip().lower()
-    action = [menu_dict.get(selection, None)]
-    action()
 
 
 def delete_last():
@@ -77,5 +79,4 @@ def main():
 
 
 if __name__ == "__main__":
-    #menu()
-    main()
+    menu_dict()
