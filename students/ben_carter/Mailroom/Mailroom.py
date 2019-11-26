@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov  5 08:47:12 2019
@@ -62,11 +63,11 @@ def mailroom():
     while True:
         user = input(prompt)
         if user == "1":
-            send_thank_you()
+            print(send_thank_you())
         elif user == "2":
             create_report()
         elif user == "3":
-            all_donors()
+            print(all_donors())
         elif user == "4":
             exit_program()
         else:
@@ -74,20 +75,6 @@ def mailroom():
 
 
 def build_email(user, donated):
-    """This function generates a thank you email """
-    print(
-          """  
-            {}
-           
-            Thank you for your wonderful donation of ${:.2f}!
-            As you know, dismantaling the structures of global capitalism is
-            quite expensive, with your help we are one step closer to our goals!
-           
-            Many thanks!
-           
-            Center for the prolonged excistence of literally any life on planet earth.
-           
-            """.format(user, donated))
     return(
           """  
             {}
@@ -102,14 +89,26 @@ def build_email(user, donated):
            
             """.format(user, donated))
    
-       
+         
 def list_donors():
     """This function prints a list of all current donors"""
+    formatted = "List of current donors: ".format(len(donors)), '_'* 20
+    moose = formatted
+    for donor in donors.keys():
+        moose += (donor)
+    line = ('_' * 20)
+    moose += (line)
+    #print(moose
+    return moose
+
+"""       
+def list_donors():
+    "This function prints a list of all current donors"
     print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
     for donor in donors.keys():
         print(f" ", donor)
     print("_" * 20)
-
+"""
    
 def send_thank_you():
     """This function is called when the user inputs option 1. its than asks
@@ -129,29 +128,29 @@ def send_thank_you():
             if user == "q":
                 break
             elif user == "list":
-                list_donors()
+                return list_donors()
             elif user in donors:
                 donation = input("Enter the donation amount or 'q' to exit: ")
                 if donation == "q":
-                    print("Break hit")
                     break
+                #refactor this following else as a new function that is testable.
                 else:
                     donated = float(donation)
                     donors[user].append(donated)
-                    print("build email right after this")
-                    build_email(user, donated)
-                    
+                    return build_email(user, donated)
+            #refactor this following else as a new function that is testable.        
             else:
                 donation = input("{} not found in donors, Adding donor, enter a donation amount: ".format(user))
                 donated = float(donation)
                 donors[user] = [donated]
-                build_email(user, donated)
+                return build_email(user, donated)
+            #refactor this following as a new function that is testable.
         except ValueError:
             #print("Value Error: The donation amount must be a integer, enter a donation amount (e.g. 100 or 25.50):")
             donation = input("Value Error: The donation amount must be a integer, enter a donation amount (e.g. 100 or 25.50):")
             donated = float(donation)
             donors[user] = [donated]
-            build_email(user, donated)
+            return build_email(user, donated)
            
            
 def create_report():
