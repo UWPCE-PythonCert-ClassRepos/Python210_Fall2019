@@ -2,6 +2,7 @@
 
 import os
 import json
+import re
 
 from datetime import datetime
 from cli import CLI
@@ -86,13 +87,59 @@ class Donors():
         else:
             self.donors = donors_dict
 
+    def datetime_encoder(self, o):
+        """
+        Encoder function to parse datetime object to json serializable string.
+        :return: string in format '2019-11-25 17:39:33.608858'
+        """
+        if isinstance(o, datetime.datetime):
+            return str(o)
+
+        return o
+
+    def datetime_decoder(self, obj):
+        """
+        Decoder function to convert iso timestamp to datetime object
+        :param obj: JSON object
+        :return: datetime object
+        """
+        p = re.compile("\d\d\d\d-[0-1][0-9]-[0-3][0-9] [0-6]\d:[0-5]\d:[0-5]\d\.\d\d\d\d\d\d")
+
+        if 'date' in obj.keys():
+            if isinstance(p.match(obj['date']), re.Match):
+                obj['date'] = datetime.strptime(obj['date'], "%Y-%m-%d %H:%M:%S.%f")
+                return obj
+            else:
+                return obj
+        return obj
+
+
     def read_donors(self):
         """
         Open donors.json to load donors data.
         :return: Dictionary of donors
         """
         with open(self.donors_file, 'r') as f:
-            return json.load(f)
+            return json.load(f, object_hook=self.datetime_decoder)
+
+    def save_donors(self):
+        """
+        Save donors dict to file
+        :return: None
+        """
+        with open(self.donors_file, 'w+') as f:
+            json.dump(f, default=self.datetime_encoder)
+
+
+
+    def add_donor(self, donor):
+        """
+        Add a new donor to the donor dict
+        :param donor: Donor object
+        :return: None
+        """
+
+        self.donors[donor.name] = donor.donations
 
 
 class Charity():
