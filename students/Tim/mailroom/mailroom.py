@@ -44,8 +44,6 @@ def sendThankYou():
         print("{:s}, \n\n\tWe greatly appreciate your donation amount of ${:.2f}. \n\n Best, \n The Human Fund \n".format(nameOfPerson, donationAmount))
         donorList[nameOfPerson] = [donationAmount]
         
-    
-    
     quitToMain()    
     #TODO create a function that automates a thank you email
 
@@ -65,13 +63,20 @@ def quitProgram():
     print("Good Bye")
     sys.exit(0)
 
+#userNav dictionary    
+userNav = {1: ["Send a Thank You to a single donor", sendThankYou],
+       2: ["Create a Report", createReport],
+       3: ["Send Letters to all donors", sendThankYou],
+       4: ["Quit", quitProgram]}
+
 #Funtion displaying user menu
 def userMenu():
-    print("\nWhat would you like to do?")
-    print("1: Create Report")
-    print("2: Send Thank You")
-    print("3: Quit")
-
+    print("What action would you like to do?")
+    print('-'*50)
+    for key, value in userNav.items():
+        print("{:d} - {:s}".format(key, value[0]))
+    userInput = input("Type 'list' to retrieve current donors>>: ")
+    userNav.get(userInput, "Please choose a different item")
 #Main function to run the program
 def main():
     while True:
