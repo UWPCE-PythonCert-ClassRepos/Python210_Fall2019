@@ -1,5 +1,5 @@
 '''
-Script: mailroomclasses
+Script: donor_models.py
 Date: 11/24/2019
 Dev: Kory Shaffer
 '''
@@ -10,18 +10,8 @@ class Charity:
         self.CharityName = name
         self.Donors = {}
 
-    def AddDonor(self, donor_name, donations):
-        self.Donors[donor_name] = Donor(donor_name, donations)
-
-    def send_thank_you(self, donor_name, amount):
-        if donor_name in self.Donors:
-            self.Donors[donor_name].AddDonation(amount)
-        else:
-            self.AddDonor(donor_name, [amount, ])
-
-        f = open(donor_name + '_letter.txt', 'w+')
-        f.write('\n Dear {:s},\n \n Thank you for your generous donation of ${:.2f}. \n \n Kind Regards, \n'
-                ' Local Non-Profit \n'.format(donor_name, amount))
+    def AddDonor(self, donor_name):
+        self.Donors[donor_name] = Donor(donor_name)
 
     def create_report(self):
         print('{:<20}|{:^13}|{:^11}|{:^14}'.format('Donor Name', 'Total Given', 'Num Gifts', 'Average Gift'))
@@ -39,9 +29,9 @@ class Charity:
                     ' Local Non-Profit \n'.format(self.Donors[donor].DonorName, self.Donors[donor].TotalDonations()))
 
 class Donor():
-    def __init__(self, donor_name, initial_donations=None):
+    def __init__(self, donor_name):
         self.DonorName = donor_name
-        self.Donations = initial_donations
+        self.Donations = []
 
     def AddDonation(self, amount):
         self.Donations.append(amount)
@@ -54,5 +44,12 @@ class Donor():
 
     def AverageDonation(self):
         return sum(self.Donations)/len(self.Donations)
+
+    def send_thank_you(self, amount):
+        self.AddDonation(amount)
+
+        f = open(self.DonorName + '_letter.txt', 'w+')
+        f.write('\n Dear {:s},\n \n Thank you for your generous donation of ${:.2f}. \n \n Kind Regards, \n'
+                ' Local Non-Profit \n'.format(self.DonorName, amount))
 
 
