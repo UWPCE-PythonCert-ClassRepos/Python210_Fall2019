@@ -78,7 +78,7 @@ def test_render_element():
     assert file_contents.index("this is") < file_contents.index("and this")
 
     # making sure the opening and closing tags are right.
-    assert file_contents.startswith("<html>")
+    assert file_contents.startwith("<html>")
     assert file_contents.endswith("</html>")
     # TODO Remove For test perposes
     #assert False
