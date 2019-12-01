@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sat Nov 30 15:10:08 2019
+Lesson 06
+Assignment: mailroom04 unit testing
 
 @author: kenclark
+class: Beginning python 210A
+
 """
 
 
@@ -14,18 +18,24 @@ donor_db = {'William Gates III': [653777.32, 12.17],
 
 
 def list_donor():
+    """
+    Generate donor list.
+    """
     for donor in donor_db:
         return donor
 
+
 def num_donors():
+    """
+    Generate donor list length
+    """
     x = len(donor_db)
     return x
 
 
 def gen_letter(donor, amount):
     """
-    generates donor thank you letter
-    and save new letter in txt file.
+    generates donor thank you letter.
     """
 
     letter = ('''
