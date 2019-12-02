@@ -36,9 +36,13 @@ class Donor():
         donations = list(donations)
 
         for donation in donations:
-            if (type(donation) is not dict
-                    or type(donation['amount']) is not float
-                    or isinstance(donation['date'], datetime) is False):
+            if type(donation) is not dict:
+                raise TypeError("'donation' must be a list.")
+
+            elif type(donation['amount']) is not float:
+                raise TypeError("'donation' parameter must be dict of {'amount': float, 'date': datetime.datetime obj)")
+
+            elif isinstance(donation['date'], datetime) is False:
                 raise TypeError("'donation' parameter must be dict of {'amount': float, 'date': datetime.datetime obj)")
 
         if type(name) is not str:
@@ -57,7 +61,7 @@ class Donor():
         if type(donation) is not float:
             raise TypeError("donation value not of type 'float'")
 
-        donation = (donation, datetime.now())
+        donation = {'amount': donation, 'date': datetime.now()}
 
         self.donations.append(donation)
 
