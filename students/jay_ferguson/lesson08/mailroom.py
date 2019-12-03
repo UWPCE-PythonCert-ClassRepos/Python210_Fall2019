@@ -57,6 +57,32 @@ class Donor():
 
         self.donations.append(donation)
 
+    def thank_donor(self):
+        """
+        Send a nice thankyou note to a donor.
+        :return: Multi-line string
+        """
+
+        message = """Dear {},
+
+            Thank you for your generous contribution of ${}!
+
+             Best Regards,
+
+             The UW Python Program"""
+
+        return message.format(self.name, self.most_recent_donation()[0])
+
+
+    def most_recent_donation(self):
+        """
+        Sort donations and return the most recent
+        :return: tuple - (amount, datetime obj)
+        """
+
+        sorted_donations = sorted(self.donations, key=lambda i: i['date'] , reverse=True)
+        return sorted_donations[0]['amount'], sorted_donations[0]['date']
+
 
     def __str__(self):
 
@@ -177,11 +203,17 @@ class DonorCollection():
 
     def save_donors(self):
         """
-        Save donors dict to file
+        Save donors to file
         :return: None
         """
-        with open(self.donors_file, 'w+') as f:
-            json.dump(f, default=self._datetime_encoder)
+
+        donors_dict = {}
+
+        for donor in self._donors:
+            donors_dict[donor.name] = donor.donations
+
+        with open(self.donors_file, 'w+') as fp:
+            json.dump(donors_dict, fp, default=self._datetime_encoder)
 
 
 
@@ -196,6 +228,18 @@ class DonorCollection():
     def sort(self, **kwargs):
 
         self._donors.sort(**kwargs)
+
+    def get_donor_by_name(self, name):
+        """
+        Return Donor whose name property matches input
+        :return:
+        """
+
+        for donor in self._donors:
+            if name in donor.name:
+                return donor
+
+        raise ValueError('Name not found in DonorCollection')
 
 
     def __str__(self):
