@@ -255,6 +255,8 @@ class DonorCollection():
 
         else:
 
+            self.sort(reverse=True)
+
             header_keys = ['Donor Name', 'Total Given', 'Number Gifts', 'Average Gift', 'Last Donation']
             header = '\n' + ('|  {:<20}' * len(header_keys))
             formatted_header = header.format(*header_keys)
