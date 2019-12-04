@@ -255,10 +255,10 @@ class DonorCollection():
 
         else:
 
-            header_keys = ['Donor Name', 'Total Given', 'Number Gifts', 'Average Gift']
+            header_keys = ['Donor Name', 'Total Given', 'Number Gifts', 'Average Gift', 'Last Donation']
             header = '\n' + ('|  {:<20}' * len(header_keys))
             formatted_header = header.format(*header_keys)
-            row_template = '\n|  {:<20}|  ${:<20}|  {:<20}|   ${:<20}'
+            row_template = '\n|  {:<20}|  ${:<20}|  {:<20}|   ${:<20}|   {:<20}'
             # print(formatted_header)
             report += '\n' + formatted_header
             divider = '-' * len(formatted_header)
@@ -272,6 +272,7 @@ class DonorCollection():
                 row.append(donor.total_donation)
                 row.append(len(donor.donations))
                 row.append(donor.average_donation)
+                row.append(donor.most_recent_donation()[1].strftime("%m-%d-%Y"))
                 report += (row_template.format(*row))
 
             report += '\n'
