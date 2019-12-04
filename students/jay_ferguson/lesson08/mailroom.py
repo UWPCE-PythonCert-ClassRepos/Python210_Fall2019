@@ -241,6 +241,43 @@ class DonorCollection():
 
         raise ValueError('Name not found in DonorCollection')
 
+    def generate_report(self, reverse=True):
+        """
+        Generate a report.
+        :return: A report - multiline string
+        """
+
+        report = ""
+
+        if reverse is False:
+
+            self.sort(reverse=False)
+
+        else:
+
+            header_keys = ['Donor Name', 'Total Given', 'Number Gifts', 'Average Gift']
+            header = '\n' + ('|  {:<20}' * len(header_keys))
+            formatted_header = header.format(*header_keys)
+            row_template = '\n|  {:<20}|  ${:<20}|  {:<20}|   ${:<20}'
+            # print(formatted_header)
+            report += '\n' + formatted_header
+            divider = '-' * len(formatted_header)
+            # print(divider)
+            report += '\n' + divider
+
+            for donor in self._donors:
+                row = []
+                row.append(donor.name)
+                # Calculate average donation and append it to the sorted_donors dicts
+                row.append(donor.total_donation)
+                row.append(len(donor.donations))
+                row.append(donor.average_donation)
+                report += (row_template.format(*row))
+
+            report += '\n'
+
+        return report
+
 
     def __str__(self):
 

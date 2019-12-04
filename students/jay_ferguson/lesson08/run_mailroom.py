@@ -60,6 +60,7 @@ def send_thank_you_to_a_donor():
                     print(donor.thank_donor())
                     print('\n')
                     donors.save_donors()
+                    prompt = False
 
                 except ValueError:
                     donation_amount = input('Donation Amount: ')
@@ -70,6 +71,7 @@ def send_thank_you_to_a_donor():
                     print(donor.thank_donor())
                     print('\n')
                     donors.save_donors()
+                    prompt = False
 
     except KeyboardInterrupt:
         return None
@@ -81,27 +83,16 @@ def send_letters_to_all_donors():
     Generate a letter for every donor. Save the letter to a file under 'OUTPUT_DIR' env var path.
     """
 
-    donors = read_donors()
+    for donor in donors:
 
-    message = """Dear {first_name},
-
-    Thank you for your generous contribution!
-
-     Best Regards,
-
-     The UW Python Program"""
-
-    for donor in donors.keys():
-        message = message.format(first_name=donor.split(' ')[0])
-        # Strip commas and spaces
-        file_name_prefix = donor.replace(' ', '').replace(',' , '')
+        file_name_prefix = donor.name.replace(' ', '').replace(',' , '')
 
         filename = file_name_prefix + '_' + datetime.now().strftime("%b%d%YT%H%M%S") + '.txt'
 
         with open(os.environ['OUTPUT_DIR'] + filename, 'w') as f:
-            f.write(message)
+            f.write(donor.thank_donor())
 
-    print('\nSaved {} letters to {}\n'.format(len(donors.keys()), os.environ['OUTPUT_DIR']))
+    print('\nSaved {} letters to {}\n'.format(len(donors._donors), os.environ['OUTPUT_DIR']))
 
 
 @cli.add_option
@@ -111,32 +102,11 @@ def generate_report():
     :return: None
     """
 
-    donors = read_donors()
-    sorted_donors = sorted(donors, key=lambda i: sum(donors[i]), reverse=True)  # Hooray lambda fuctions!
-    header_keys = ['Donor Name', 'Total Given', 'Number Gifts', 'Average Gift']
-    header = '\n' + ('|  {:<20}' * len(header_keys))
-    formatted_header = header.format(*header_keys)
-    row_template = '|  {:<20}|  ${:<20}|  {:<20}|   ${:<20}'
-    print(formatted_header)
-    divider = '-' * len(formatted_header)
-    print(divider)
-
-    for i in sorted_donors:
-        row = []
-        row.append(i)
-        # Calculate average donation and append it to the sorted_donors dicts
-        total_donation = sum(donors[i])
-        average_donation = total_donation / len(donors[i])
-        row.append(round(total_donation, ndigits=2))
-        row.append(len(donors[i]))
-        row.append(round(average_donation, ndigits=2))
-        print(row_template.format(*row))
-
-    print('')
+    print(donors.generate_report())
 
 
 @cli.add_option
-def set_donors_file_directory():
+def set_output_file_directory():
     """
     Prompt for and set the base directory for donor files.
     Defaults to current working directory as set in environment variable.
@@ -155,9 +125,7 @@ def set_donors_file_directory():
     if os.path.exists(donor_directory):
         os.environ['OUTPUT_DIR'] = donor_directory
 
-        print('\nSuccessfully updated base directory.\n')
-
-        check_for_donors()
+        print('\nSuccessfully updated output directory.\n')
 
     else:
         user_input = input('Directory does not exist. Create directory [Y/N]? ')
