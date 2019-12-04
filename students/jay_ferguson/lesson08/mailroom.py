@@ -182,7 +182,7 @@ class DonorCollection():
         :param obj: JSON object
         :return: datetime object
         """
-        p = re.compile("\d\d\d\d-[0-1][0-9]-[0-3][0-9] [0-6]\d:[0-5]\d:[0-5]\d\.\d\d\d\d\d\d")
+        p = re.compile(r"\d\d\d\d-[0-1][0-9]-[0-3][0-9] [0-6]\d:[0-5]\d:[0-5]\d\.\d\d\d\d\d\d")
 
         if 'date' in obj.keys():
             if isinstance(p.match(obj['date']), re.Match):

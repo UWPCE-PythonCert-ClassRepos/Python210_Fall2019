@@ -52,7 +52,7 @@ def test_most_recent_donation():
     b = datetime(2019, 12, 2, 23, 28, 25, 610351)
     c = datetime(2019, 12, 2, 23, 28, 29, 310351)
     donor = Donor('Bill Murray', [{'amount': 20.00, 'date': a}, {'amount': 30.00, 'date': b}, {'amount': 40.00, 'date': c}])
-    assert donor.`most_recent_donation() == (20.00, a)
+    assert donor.most_recent_donation() == (20.00, a)
 
 
 def test_DonorCollection_add_donor():
