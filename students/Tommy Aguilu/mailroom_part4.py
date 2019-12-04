@@ -3,6 +3,7 @@
 ### Class - Python 210A
 
 import math
+import Mailroom4_Test as testing
 donor_raw = {"Mark Zuckerberg" : [32432, 38475, 7845], "Jeff_Bezos" : [23424, 234324, 444432, 222341], "Paul Allen" : [23424, 234324, 44432, 2341], "Melinda Gates" : [3432, 26524, 44432, 22741]}
 #key = donor, values = all donations
 donor_processed = []
@@ -52,36 +53,26 @@ if __name__ == "__main__":
     donor_processed = clean_data(donor_raw)
     sentinal = True
     while sentinal == True:
-        choice = input("What would you like to do?\n1. Print Donor Report \n2. Send Letter\n3. Close out\n4. Initiate unit tests ")
-        try:
-            if choice == str(1):
-                list_reader(donor_processed)
-            elif choice == str(2):
-                donor_list(donor_raw)
-                donor_choice = input("Which donor would you like to write a thank you to? (type all if you would like to send it a letter to all) ")
-                if donor_choice in donor_raw:
-                    donor_letter(donor_raw,donor_choice)
-                if donor_choice == "all":
-                    send_many(donor_raw)
-                elif donor_processed not in donor_raw:
-                    donation_list = []
-                    donation = input("Donor not found in list please specify how donation amount")
-                    donation_list.append(donation)
-                    donor_raw.update({donor_choice : donation_list})
-                    donor_letter(donor_raw,donor_choice)
-            elif choice == str(3):
-                print("closing out")
-                sentinal = False
-            elif choice == str(4):
-                test_set_raw = {"Mark Zuckerberg": [32432, 38475, 7845]}
-                test_set_raw_multi = {"Mark Zuckerberg": [32432, 38475, 7845],
-                                      "Jeff_Bezos": [23424, 234324, 444432, 222341]}
-                assert clean_data(test_set_raw) == [["Mark Zuckerberg", 78752, 3, 26251]]
-                assert type(clean_data(test_set_raw)) == list
-                assert clean_data(test_set_raw_multi) == [["Mark Zuckerberg", 78752, 3, 26251],
-                                                          ["Jeff_Bezos", 924521, 4, 231130]]
-                print("tests pass :)")
-                #
-        except:
-            print("Incorrect input please try again")
+        choice = input("1. Print Donor Report \n2. Send Letter\n3. Close out\n4. Initiate unit tests\n""What would you like to do?")
+        if choice == str(1):
+            list_reader(donor_processed)
+        elif choice == str(2):
+            donor_list(donor_raw)
+            donor_choice = input("Which donor would you like to write a thank you to? (type all if you would like to send it a letter to all) ")
+            if donor_choice in donor_raw:
+                donor_letter(donor_raw,donor_choice)
+            if donor_choice == "all":
+                send_many(donor_raw)
+            elif donor_processed not in donor_raw:
+                donation_list = []
+                donation = input("Donor not found in list please specify how donation amount")
+                donation_list.append(donation)
+                donor_raw.update({donor_choice : donation_list})
+                donor_letter(donor_raw,donor_choice)
+        elif choice == str(3):
+            print("closing out")
+            sentinal = False
+        elif choice == str(4):
+            testing.test()
+
 
