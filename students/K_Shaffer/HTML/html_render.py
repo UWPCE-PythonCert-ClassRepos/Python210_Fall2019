@@ -15,6 +15,7 @@ class Element(object):
         self.clas = clas
         self.width = width
 
+
     def append(self, new_content):
         if self.content[0] is None:
             self.content[0] = new_content
@@ -89,6 +90,42 @@ class A(Element):
 
     def render(self, out_file, ind=''):
         out_file.write('<a href=' + self.link + '>link' + self.content + '</a>\n')
+
+class Ul(Element):
+    tag = 'ul'
+
+    def render(self, out_file, ind=''):
+        if self.id:
+            out_file.write('<' + self.tag + ' id=\"' + self.id + '\" ')
+        if self.style:
+            out_file.write('' + 'style=\"' + self.style + '\">\n')
+        for item in self.content:
+                item.render(out_file)
+        out_file.write('</' + self.tag + '> \n')
+
+
+class Li(Element):
+    tag = 'li'
+
+    def render(self, out_file, ind=''):
+        if self.style:
+            out_file.write('<' + self.tag + ' style=\"' + self.style + '\">\n')
+        else:
+            out_file.write('<' + self.tag + '> \n')
+        for item in self.content:
+            if type(item) == str:
+                out_file.write(item + '\n')
+            else:
+                item.render(out_file)
+        out_file.write('</' + self.tag + '> \n')
+
+class H(OneLineTag):
+
+    def __init__(self, h, content=None):
+                 self.content = [content,]
+                 self.tag = 'h' + str(h)
+
+
 
 
 
