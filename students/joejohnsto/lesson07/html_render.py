@@ -75,6 +75,9 @@ class Head(Element):
 
 
 class onelinetag(Element):
+    """
+    A subclass of Element which takes the same arguments but does not include /n characters
+    """
     
     def render(self, out_file):
         out_string = '<' + self.open_tag + '> ' + self.content_string + ' </' + self.Tag + '>'
@@ -85,7 +88,17 @@ class Title(onelinetag):
     Tag = 'title'
 
 
+class A(onelinetag):
+    Tag = 'a'
+    
+    def __init__(self, link, content):
+        super().__init__(content, href=link)
+
+
 class SelfClosingTag(Element):
+    """
+    A subclass of Element which does not include content or a separate closing tag
+    """
     
     def __init__(self, content=None, **kwargs):
         if content is not None:

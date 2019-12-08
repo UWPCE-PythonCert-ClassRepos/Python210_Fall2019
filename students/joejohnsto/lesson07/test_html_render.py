@@ -245,6 +245,22 @@ def test_no_append():
 
 
 
+
+
+########
+# Step 5
+########
+
+def test_link():
+    a = A("http://google.com", "link to google")
+    file_contents = render_result(a)
+    assert file_contents.startswith('<a')
+    assert 'href=' in file_contents
+
+
+
+
+
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
