@@ -60,6 +60,11 @@ class Element(object):
 
 class Html(Element):
     Tag = 'html'
+    
+    def render(self, out_file):
+        out_string = '<!DOCTYPE html>\n<' + self.open_tag + '>\n' + self.content_string + \
+                     '\n</' + self.Tag + '>'
+        out_file.write(out_string)
 
 
 class Body(Element):
@@ -72,6 +77,14 @@ class P(Element):
 
 class Head(Element):
     Tag = 'head'
+
+
+class Ul(Element):
+    Tag = 'ul'
+
+
+class Li(Element):
+    Tag = 'li'
 
 
 class onelinetag(Element):
@@ -93,6 +106,13 @@ class A(onelinetag):
     
     def __init__(self, link, content):
         super().__init__(content, href=link)
+
+
+class H(onelinetag):
+    
+    def __init__(self, level, content, **kwargs):
+        self.Tag = 'h' + str(level)
+        super().__init__(content, **kwargs)
 
 
 class SelfClosingTag(Element):
@@ -119,3 +139,7 @@ class Hr(SelfClosingTag):
 
 class Br(SelfClosingTag):
     Tag = 'br'
+
+
+class Meta(SelfClosingTag):
+    Tag = 'meta'

@@ -108,7 +108,6 @@ def test_render_element2():
     assert file_contents.endswith("</html>")
 
 
-
 # ########
 # # Step 2
 # ########
@@ -175,8 +174,6 @@ def test_sub_element():
     assert "</p>" in file_contents
 
 
-
-
 ########
 # Step 3
 ########
@@ -197,7 +194,6 @@ def test_title():
     file_contents = render_result(page)
     print(file_contents) # so we can see it if the test fails
     assert "<title> The Title </title>" in file_contents
-
 
 
 ########
@@ -244,11 +240,8 @@ def test_no_append():
     assert 'Content is not allowed in Self Closing Elements!' in str(excinfo.value)
 
 
-
-
-
 ########
-# Step 5
+# Step 6
 ########
 
 def test_link():
@@ -258,7 +251,48 @@ def test_link():
     assert 'href=' in file_contents
 
 
+########
+# Step 7
+########
 
+def test_list():
+    u = Ul(style="line-height:200%", id="TheList")
+    l1 = Li('first item in list')
+    l2 = Li('second item')
+    u.append(l1)
+    u.append(l2)
+    file_contents = render_result(u)
+    assert file_contents.startswith('<ul')
+    assert 'id="TheList"' in file_contents
+    assert file_contents.index('first') < file_contents.index('second')
+    assert file_contents.endswith('/ul>')
+
+def test_header():
+    h = H(3, 'this is header 3', style="background-color:rgb(255, 99, 71);")
+    file_contents = render_result(h)
+    assert file_contents.startswith('<h3')
+    assert 'style="background' in file_contents
+    assert 'header 3' in file_contents
+
+
+########
+# Step 8
+########
+
+def test_html():
+    page = Html()
+    page.append("some plain text.")
+    file_contents = render_result(page)
+    assert file_contents.startswith('<!DOCTYPE html>\n')
+
+def test_meta():
+    page = Html()
+    head = Head()
+    head.append( Meta(charset="UTF-8") )
+    head.append(Title("PythonClass = Revision 1087:"))
+    page.append(head)
+    file_contents = render_result(page)
+    assert '<meta charset="UTF-8" />' in file_contents
 
 
 # #####################
