@@ -21,6 +21,8 @@ class Element(object):
     """
 
     Tag = 'html'
+    Indent = 4
+    
     def __init__(self, content=None, **kwargs):
         self.content = []
         self.attributes = kwargs
@@ -35,16 +37,15 @@ class Element(object):
         else:
             return self.Tag
     
-    @property
-    def content_string(self):
+    def content_string(self, cur_ind):
         content_string = ''
         for _ in self.content:
             try:
                 f = StringIO()
-                _.render(f)
+                _.render(f, self.Indent + cur_ind)
                 content_string += f.getvalue()
             except AttributeError:
-                content_string += _
+                content_string += (' '*(cur_ind + self.Indent) + _)
             finally:
                 if _ is not self.content[-1]:
                     content_string += '\n'
@@ -53,17 +54,19 @@ class Element(object):
     def append(self, new_content):
         self.content.append(new_content)
 
-    def render(self, out_file):
-        out_string = '<' + self.open_tag + '>\n' + self.content_string + '\n</' + self.Tag + '>'
+    def render(self, out_file, cur_ind=0):
+        ind = ' ' * cur_ind
+        out_string = ind + '<' + self.open_tag + '>\n' + self.content_string(cur_ind) +\
+                     '\n' + ind + '</' + self.Tag + '>'
         out_file.write(out_string)
 
 
 class Html(Element):
     Tag = 'html'
     
-    def render(self, out_file):
-        out_string = '<!DOCTYPE html>\n<' + self.open_tag + '>\n' + self.content_string + \
-                     '\n</' + self.Tag + '>'
+    def render(self, out_file, cur_ind=0):
+        out_string = '<!DOCTYPE html>\n' + '<' + self.open_tag + '>\n' + \
+                     self.content_string(cur_ind) + '\n</' + self.Tag + '>'
         out_file.write(out_string)
 
 
@@ -92,8 +95,10 @@ class onelinetag(Element):
     A subclass of Element which takes the same arguments but does not include /n characters
     """
     
-    def render(self, out_file):
-        out_string = '<' + self.open_tag + '> ' + self.content_string + ' </' + self.Tag + '>'
+    def render(self, out_file, cur_ind=0):
+        ind = ' ' * cur_ind
+        out_string = ind + '<' + self.open_tag + '> ' + self.content_string(-4) + \
+                     ' </' + self.Tag + '>'
         out_file.write(out_string)
 
 
@@ -128,8 +133,8 @@ class SelfClosingTag(Element):
     def append(self):
         raise TypeError('Content is not allowed in Self Closing Elements!')
     
-    def render(self, out_file):
-        out_string = '<' + self.open_tag + ' />'
+    def render(self, out_file, cur_ind=0):
+        out_string = ' '*cur_ind + '<' + self.open_tag + ' />'
         out_file.write(out_string)
 
 
