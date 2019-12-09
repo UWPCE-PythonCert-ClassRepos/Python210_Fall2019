@@ -4,9 +4,25 @@
 
 import math
 donor_raw = {"Mark Zuckerberg" : [32432, 38475, 7845], "Jeff_Bezos" : [23424, 234324, 444432, 222341], "Paul Allen" : [23424, 234324, 44432, 2341], "Melinda Gates" : [3432, 26524, 44432, 22741]}
+
+class donor_cleaned():
+    def __init__(self,**kwargs):
+        self.donations = kwargs
+    def cleanup(self):
+        x = []
+        for k,v in self.donations.items():
+            y = []
+            y.append(k)
+            for i in v:
+                y.append(i)
+            x.append(y)
+            print(y)
+        return x
+
 #key = donor, values = all donations
 donor_processed = []
 def list_reader(list1):
+    print(list1)
     print("Donor Name                | Total Given | Num Gifts | Average Gift")
     print("------------------------------------------------------------------")
     for i in list1:
@@ -71,6 +87,8 @@ if __name__ == "__main__":
         elif choice == str(3):
             print("closing out")
             sentinal = False
-
+        elif choice == str(4):
+            #testing.test()
+            print("fix texting :(")
 
 

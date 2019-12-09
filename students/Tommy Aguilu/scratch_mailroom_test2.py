@@ -14,9 +14,8 @@ class Donor():
         return (sum(self.donations)/len(self.donations)).__round__()
     def number_of_donations(self):
         return len(self.donations)
-    def __repr__(self):
-        return (f'Donor Name: {self.name}, Donations: {self.donations}')
-class DonorCollection():
+    def __str__(self):
+        return ('Donor Name: {}, Donations: {}').format(self.name, self.donations)
     @staticmethod
     def list_reader(y):
         print("Donor Name                | Total Given | Num Gifts | Average Gift")
@@ -26,27 +25,20 @@ class DonorCollection():
             b = len(str(i[1]))
             c = len(str(i[2]))
             d = len(str(i[3]))
-            print(str(i[0]) + ((28 - a) * " ") + str(i[1]) + ((13 - b) * " ") + str(i[2]) + ((13 - c) * " ") + str(i[3]) + (
+            print(i[0] + ((28 - a) * " ") + str(i[1]) + ((13 - b) * " ") + str(i[2]) + ((13 - c) * " ") + str(i[3]) + (
                         (14 - d) * " "))
     @staticmethod
-    def menu():
-        return input("1. Print Donor Report \n2. Send Letter\n3. Close out\n4. Initiate unit tests\n""What would you like to do? ")
-###cli_main.py
-x = []
-for k,v in donor_raw.items():
-    donor = Donor(k,v)
-    y = []
-    y.append(k)
-    y.append(donor.last_donation())
-    y.append(donor.number_of_donations())
-    y.append(donor.average_donation())
-    x.append(y)
-sentinal = True
-while sentinal == True:
-    choice = DonorCollection.menu()
-    if choice == "1":
-        DonorCollection.list_reader(x)
-    elif choice == "2":
-        print(x)
-    elif choice == "3":
-        break
+    def clean_list(donor_raw):
+        x = []
+        for k, v in donor_raw.items():
+            donor = Donor(k, v)
+            y = []
+            y.append(k)
+            y.append(donor.last_donation())
+            y.append(donor.number_of_donations())
+            y.append(donor.average_donation())
+            x.append(y)
+
+d1 = Donor(donor_raw)
+print(d1)
+
