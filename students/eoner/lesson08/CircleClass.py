@@ -106,6 +106,8 @@ class Sphere(Circle):
 
 if __name__ == "__main__":
     print("Running Tests...")
+    
+    # create using class methods
     c1 = Circle(4)
     c2 = Circle(40)
     c3 = Circle(40)
@@ -114,7 +116,8 @@ if __name__ == "__main__":
     s2 = Sphere(50)
     s3 = Sphere(50)
     s4 = Sphere.from_diameter(50)
-    cl= [Circle(4),Circle(40),Circle(400),Circle(4000)]
+    cl= [Circle(40),Circle(4),Circle(400),Circle(4000)]
+    
     #test create and verify class attributes
     assert c1.radius == 4
     assert c1.diameter == 8
@@ -138,10 +141,26 @@ if __name__ == "__main__":
     assert s1<s2
     assert s4>s1
 
-    #test addition with same obj type , integer ,reverse, circle+sphere
+    #test sorting
+    cl.sort(key = None, reverse = True)
+    assert cl == [Circle(4000), Circle(400), Circle(40), Circle(4)]
+
+    #test addition with same obj type, integer, reverse, circle+sphere
     assert c2+c1 == Circle(44)
     assert c1+c2 == Circle(44)
     assert c1+10 == Circle(14)
     assert 10+c1 == Circle(14)
     assert c1+s1 == Circle(9)
     assert s1+c1 == Sphere(9)
+
+    #test changing class attributes
+    c1.radius = 8
+    assert c1.radius == 8
+    assert c1.diameter == 16
+    c1.diameter = 8
+    assert c1.diameter == 8
+    assert c1.radius == 4
+
+    #test string method
+    assert str(c3) == 'Circle,radius: 40'
+    assert str(s2) == 'Sphere,radius: 50'
