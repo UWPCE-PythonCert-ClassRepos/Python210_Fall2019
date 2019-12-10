@@ -19,7 +19,6 @@ def add_donation():
     donor_input = ""
     confirm_input = ""
     donation_amount = ""
-    donation_positive = False
     thank_you_prompt = "For main menu enter 'q' at any time.\n" + \
                        "Enter a donor's Full Name or enter 'list' to see " + \
                        "the donors list :"
@@ -49,11 +48,11 @@ def add_donation():
                 break
             try:
                 donation_amount = float(donation_amount)
+                if donation_amount < 0:
+                    donation_amount = ""
+                    print('Please enter a positive number')
             except ValueError:
                 print('Please enter a number')
-            if donation_amount < 0:
-                donation_amount = ""
-                print('Please enter a positive number')
 
 
         if donation_amount == "q":

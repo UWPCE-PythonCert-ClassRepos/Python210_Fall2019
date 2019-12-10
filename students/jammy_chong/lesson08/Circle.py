@@ -30,52 +30,52 @@ class Circle:
         return 'Circle({})'.format(self.radius)
 
     def __add__(self, other):
-        if isinstance(other, Circle):
-            return Circle(self.radius + other.radius)
+        if isinstance(other, __class__):
+            return self.__class__(self.radius + other.radius)
         elif type(other) is int or float:
-            return Circle(self.radius + other)
+            return self.__class__(self.radius + other)
 
     def __radd__(self, other):
         if isinstance(other, Circle):
-            return Circle(self.radius + other.radius)
+            return self.__class__(self.radius + other.radius)
         elif type(other) is int or float:
-            return Circle(self.radius + other)
+            return self.__class__(self.radius + other)
 
     def __sub__(self, other):
         if isinstance(other, Circle):
-            return Circle(self.radius - other.radius)
+            return self.__class__(self.radius - other.radius)
         elif type(other) is int or float:
-            return Circle(self.radius - other)
+            return self.__class__(self.radius - other)
 
     def __rsub__(self, other):
         if isinstance(other, Circle):
-            return Circle(other.radius - self.radius)
+            return self.__class__(other.radius - self.radius)
         elif type(other) is int or float:
-            return Circle(other - self.radius)
+            return self.__class__(other - self.radius)
 
     def __mul__(self, other):
         if isinstance(other, Circle):
-            return Circle(self.radius * other.radius)
+            return self.__class__(self.radius * other.radius)
         elif type(other) is int or float:
-            return Circle(self.radius * other)
+            return self.__class__(self.radius * other)
 
     def __rmul__(self, other):
         if isinstance(other, Circle):
-            return Circle(self.radius * other.radius)
+            return self.__class__(self.radius * other.radius)
         elif type(other) is int or float:
-            return Circle(self.radius * other)
+            return self.__class__(self.radius * other)
 
     def __truediv__(self, other):
         if isinstance(other, Circle):
-            return Circle(self.radius / other.radius)
+            return self.__class__(self.radius / other.radius)
         elif type(other) is int or float:
-            return Circle(self.radius / other)
+            return self.__class__(self.radius / other)
 
     def __rtruediv__(self, other):
         if isinstance(other, Circle):
-            return Circle(other.radius / self.radius)
+            return self.__class__(other.radius / self.radius)
         elif type(other) is int or float:
-            return Circle(other / self.radius)
+            return self.__class__(other / self.radius)
 
     def __eq__(self, other):
         if isinstance(other, Circle):
