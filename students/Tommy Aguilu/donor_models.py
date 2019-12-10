@@ -19,6 +19,7 @@ class donor:
         return sum(self.donor_values)
     def return_list(self):
         return [self.donor_name, self.total_donation(), self.number_of_donations(), self.average_donation()]
+    #these are only used on single items
     def letter_output_test(self):
         return print(f' Dear {self.donor_name}\n Thank you for your most recent donation of {self.last_donation()} dollars. To date you'
                 f' have donated {self.number_of_donations()} times for a total of {self.total_donation()} \n \n Regards, \n Tommy')
@@ -26,7 +27,14 @@ class donor:
         f = open(self.donor_name + ".txt", "w")
         f.write(f' Dear {self.donor_name}\n Thank you for your most recent donation of {self.last_donation()} dollars. To date you'
             f' have donated {self.number_of_donations()} times for a total of {self.total_donation()} \n \n Regards, \n Tommy')
-
+    @staticmethod
+    #pass this a processed list from donor_collection class
+    #input - donor_collection.donor_list
+    #values - [donor_data[0] = name of donor, donor_data[1] = last donation
+    def write_letter(donor_data):
+        return print(
+            f' Dear {donor_data[0]}\n Thank you for your most recent donation of {donor_data[1]} dollars. To date you'
+            f' have donated {donor_data[2]} times for a total of {donor_data[3]} \n \n Regards, \n Tommy')
 class donor_collection:
     def __init__(self, donor_list):
         self.donor_list = [donor_list]
