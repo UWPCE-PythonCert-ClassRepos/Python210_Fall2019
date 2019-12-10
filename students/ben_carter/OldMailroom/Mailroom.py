@@ -65,7 +65,7 @@ def mailroom():
         if user == "1":
             print(send_thank_you())
         elif user == "2":
-            create_report()
+            print(create_report())
         elif user == "3":
             print(all_donors())
         elif user == "4":
@@ -88,27 +88,15 @@ def build_email(user, donated):
             Center for the prolonged excistence of literally any life on planet earth.
            
             """.format(user, donated))
-   
          
+    
 def list_donors():
     """This function prints a list of all current donors"""
-    formatted = "List of current donors: ".format(len(donors)), '_'* 20
-    moose = formatted
+    formatted = "List of current donors: \n"
     for donor in donors.keys():
-        moose += (donor)
-    line = ('_' * 20)
-    moose += (line)
-    #print(moose
-    return moose
+        formatted += (donor + ' \n')
+    return formatted
 
-"""       
-def list_donors():
-    "This function prints a list of all current donors"
-    print("\nList of current donors: ".format(len(donors)), '\n', '_'* 20)
-    for donor in donors.keys():
-        print(f" ", donor)
-    print("_" * 20)
-"""
    
 def send_thank_you():
     """This function is called when the user inputs option 1. its than asks
@@ -133,26 +121,25 @@ def send_thank_you():
                 donation = input("Enter the donation amount or 'q' to exit: ")
                 if donation == "q":
                     break
-                #refactor this following else as a new function that is testable.
                 else:
-                    donated = float(donation)
-                    donors[user].append(donated)
-                    return build_email(user, donated)
-            #refactor this following else as a new function that is testable.        
+                    return build_email(user, add_donation_to_donor(user, donation))      
             else:
                 donation = input("{} not found in donors, Adding donor, enter a donation amount: ".format(user))
-                donated = float(donation)
-                donors[user] = [donated]
-                return build_email(user, donated)
-            #refactor this following as a new function that is testable.
+                return build_email(user, add_donation_to_donor(user, donation))
         except ValueError:
             #print("Value Error: The donation amount must be a integer, enter a donation amount (e.g. 100 or 25.50):")
             donation = input("Value Error: The donation amount must be a integer, enter a donation amount (e.g. 100 or 25.50):")
-            donated = float(donation)
-            donors[user] = [donated]
-            return build_email(user, donated)
-           
-           
+            return build_email(user, add_donation_to_donor(user, donation))
+      
+def add_donation_to_donor(user, donation):
+    donated = float(donation)
+    if user in donors:
+        donors[user].append(donated)
+    else:
+        donors[user] = [donated]
+    return donated    
+        
+        
 def create_report():
     """This function generates a formated report of all donors and some
     information regarding their donations"""
@@ -160,23 +147,23 @@ def create_report():
     total_donation = "Total of donations"
     num_donations = "Number of donations"
     avg_donation = "Average of donations"
-    report_header = f"{donor_name:<15}|{total_donation:>15}|{num_donations:>15}|{avg_donation:>15}"
-    print(report_header)
-    print(len(report_header)*"_")
-   
+    report_header = f"{donor_name:<15}|{total_donation:>15}|{num_donations:>15}|{avg_donation:>15}\n"
+    report = report_header
+    report += len(report) * "_"
+    report += "\n"
     for key, amount in donors.items():
         total_donation = sum(amount)
         num_donations = len(amount)
         avg_donation = total_donation / num_donations
         formated_total_donation = ("{:.2f}".format(total_donation))
         formated_avg_donation = ("{:.2f}".format(avg_donation))
-        print(f"{key:<15} ${formated_total_donation:>17} {num_donations:>19} ${formated_avg_donation:>19}")
-     
+        report += (f"{key:<15} ${formated_total_donation:>17} {num_donations:>19} ${formated_avg_donation:>19}\n")
+    return report
+
         
 def all_donors():
     for name, amount in donors.items():
         total_donation = sum(amount)
-        #F = open("{}",'w')
         text = build_email(name, total_donation)
         create_new_file(name, text)
         
