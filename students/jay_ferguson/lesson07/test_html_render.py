@@ -193,6 +193,38 @@ def test_one_liners():
         if '<title>' in line:
             assert '</title>' in line
 
+def test_inline_style():
+    page = Html()
+    page.append(P("A simple paragraph of text", style="text-align: center; font-style: oblique;", id="Test"))
+    page.append("Some more plain text.")
+
+    file_contents = render_result(page)
+
+    print(file_contents) # so we can see it if the test fails
+    assert '<p style="text-align: center; font-style: oblique;", id="Test" >' in file_contents
+
+def test_inline_class_keyword():
+    page = Html()
+    page.append(P("A simple paragraph of text", style="text-align: center; font-style: oblique;", id="Test", _class='intro'))
+    page.append("Some more plain text.")
+
+    file_contents = render_result(page)
+
+    print(file_contents) # so we can see it if the test fails
+    assert '<p style="text-align: center; font-style: oblique;", id="Test", class="intro" >' in file_contents
+
+def test_self_closing():
+    page = Html()
+    page.append(P("A simple paragraph of text", style="text-align: center; font-style: oblique;", id="Test", _class='intro'))
+    page.append(Br())
+    page.append(Hr(width=400))
+    file_contents = render_result(page)
+    assert '<br/>' in file_contents
+    assert '<hr width="400" />' in file_contents
+
+    with pytest.raises(TypeError):
+        page.append(Hr('Some content'))
+
 
 # #####################
 # # indentation testing
