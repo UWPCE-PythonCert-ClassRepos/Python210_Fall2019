@@ -27,14 +27,28 @@ class donor:
         f = open(self.donor_name + ".txt", "w")
         f.write(f' Dear {self.donor_name}\n Thank you for your most recent donation of {self.last_donation()} dollars. To date you'
             f' have donated {self.number_of_donations()} times for a total of {self.total_donation()} \n \n Regards, \n Tommy')
+
+class donor_methods:
     @staticmethod
     #pass this a processed list from donor_collection class
     #input - donor_collection.donor_list
     #values - [donor_data[0] = name of donor, donor_data[1] = last donation
     def write_letter(donor_data):
-        return print(
+        f = open(donor_data[0] + ".txt", "w")
+        f.write(
             f' Dear {donor_data[0]}\n Thank you for your most recent donation of {donor_data[1]} dollars. To date you'
-            f' have donated {donor_data[2]} times for a total of {donor_data[3]} \n \n Regards, \n Tommy')
+            f' have donated {donor_data[2]} times for a total of {donor_data[3]} \n \n Regards, \n Tommy\n')
+    @staticmethod
+    def list_donors(donor_data):
+        for i in donor_data:
+            print(i[0])
+    @staticmethod
+    def search_list(donor_data, choice):
+        counter = 0
+        for i in donor_data:
+            if choice in donor_data[counter]:
+                return donor_data[counter]
+            counter+=1
 class donor_collection:
     def __init__(self, donor_list):
         self.donor_list = [donor_list]

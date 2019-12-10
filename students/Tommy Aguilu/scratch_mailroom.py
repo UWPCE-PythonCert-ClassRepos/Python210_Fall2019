@@ -1,52 +1,40 @@
-import math
-donor_raw = {"Jerry" : [32432, 38475, 7845], "Mark" : [432, 38575]}
-class Donor():
-    def __init__(self, name, donations):
-        self.name = name
-        self.donations = []
-        if(isinstance(donations, (int,float))):
-            self.donations = [donations]
-        else:
-            self.donations = donations
-    def last_donation(self):
-        return self.donations[-1]
-    def average_donation(self):
-        return (sum(self.donations)/len(self.donations)).__round__()
-    def number_of_donations(self):
-        return len(self.donations)
-    def __repr__(self):
-        return (f'Donor Name: {self.name}, Donations: {self.donations}')
-class DonorCollection():
-    @staticmethod
-    def list_reader(y):
-        print("Donor Name                | Total Given | Num Gifts | Average Gift")
-        print("------------------------------------------------------------------")
-        for i in y:
-            a = len(str(i[0]))
-            b = len(str(i[1]))
-            c = len(str(i[2]))
-            d = len(str(i[3]))
-            print(str(i[0]) + ((28 - a) * " ") + str(i[1]) + ((13 - b) * " ") + str(i[2]) + ((13 - c) * " ") + str(i[3]) + (
-                        (14 - d) * " "))
-    @staticmethod
-    def menu():
-        return input("1. Print Donor Report \n2. Send Letter\n3. Close out\n4. Initiate unit tests\n""What would you like to do? ")
-###cli_main.py
-x = []
-for k,v in donor_raw.items():
-    donor = Donor(k,v)
-    y = []
-    y.append(k)
-    y.append(donor.last_donation())
-    y.append(donor.number_of_donations())
-    y.append(donor.average_donation())
-    x.append(y)
+from donor_models import donor
+from donor_models import  donor_collection
+from donor_models import donor_methods
+from test_mailroom_oo import tests
+
+def create_donor_data():
+    d1 = donor("Mark Zuckerberg")
+    d1.new_donation(3245)
+    d1.new_donation(48372)
+    d2 = donor("Bill Gates")
+    d2.new_donation(43454)
+    d2.new_donation(444)
+    d2.new_donation(23444)
+    a = donor_collection(d1.return_list())
+    a.add_donor(d2.return_list())
+    #print(a.donor_list)
+    return a
+#initilize donor data as a
+a = create_donor_data()
+#load initialized donor list
+b = a.donor_list
+#io for mailroom
 sentinal = True
 while sentinal == True:
-    choice = DonorCollection.menu()
+    choice = input("1. Print Donor Report \n2. Write Letters\n3. Initiate unit tests\n4. Close out\n""What would you like to do?: ")
     if choice == "1":
-        DonorCollection.list_reader(x)
+        a.report_writer()
     elif choice == "2":
-        print(x)
+        report_choice = input("1. Print single donor letter\n2. Print all donor letters\n""What would you like to do?: ")
+        if report_choice == "1":
+            donor_methods.list_donors(b)
+            donor_choice = input("Which donor would you like to choose? ")
+            donor_methods.write_letter(donor_methods.search_list(b, donor_choice))
+        elif report_choice == "2":
+            for i in b:
+                donor_methods.write_letter(i)
     elif choice == "3":
+        tests()
+    elif choice == "4":
         break
