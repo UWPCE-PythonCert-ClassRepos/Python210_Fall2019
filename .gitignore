@@ -108,3 +108,6 @@ ENV/
 
 # Class files for Canvas
 .zip
+
+# Generated files from HTML Renderer
+.html

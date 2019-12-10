@@ -180,7 +180,19 @@ def test_sub_element():
 # Step 3
 ########
 
-# Add your tests here!
+def test_one_liners():
+    page = Html()
+    page.append(Title("I am the Title"))
+    page.append("some plain text.")
+    page.append(P("A simple paragraph of text"))
+    page.append("Some more plain text.")
+
+    file_contents = render_result(page)
+    print(file_contents) # so we can see it if the test fails
+    for line in file_contents: # Check that title tags are rendered on the same line
+        if '<title>' in line:
+            assert '</title>' in line
+
 
 # #####################
 # # indentation testing

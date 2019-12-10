@@ -43,7 +43,6 @@ class Element:
 
         return data  # we need to return. When we call recursively, we will have file argument just for first
 
-
 class Body(Element):
     Tag = 'body'
 
@@ -54,6 +53,22 @@ class Html(Element):
 
 class P(Element):
     Tag = 'p'
+
+class Head(Element):
+    Tag = 'head'
+
+
+class OneLineTag(Element):
+    """
+    Parent class for all single line tags
+    """
+
+    def render(self, out_file=None):
+        data = super().render(out_file=None)
+        return data.replace('\n', '')
+
+class Title(OneLineTag):
+    Tag = 'title'
 
 class TextWrapper:
     """
