@@ -86,6 +86,31 @@ class Body(Element):
 class Html(Element):
     Tag = 'html'
 
+    def render(self, out_file=None):
+        Content = ''
+        for _ in self.Content:
+            if _ is None:
+                pass
+            else:
+                try:
+                    Content += _.render()
+                except AttributeError:  # Detect base case for recursion
+                    Content += _
+
+        data = '<!DOCTYPE html>\n<' + self.Tag + self.attributes + '>\n' + Content + '\n' + \
+                 '</' + self.Tag + '>'
+
+        if out_file is None:
+            pass
+        else:
+            try:
+                with open(out_file, 'w+') as f:
+                    f.write(data)
+            except TypeError:  # Catch error if a StringIO object is passed
+                out_file.write(data)
+
+        return data  # we need to return. When we call recursively, we will have file argument just for first
+
 
 class P(Element):
     Tag = 'p'
@@ -220,6 +245,25 @@ class H(OneLineTag):
             heading_size = 6
 
         self.Tag = f'h{heading_size}'
+
+
+class Meta(SelfClosingTag):
+    Tag = 'meta'
+
+    def render(self, out_file=None):
+
+        data = '<' + self.Tag + self.attributes + '>\n'
+
+        if out_file is None:
+            pass
+        else:
+            try:
+                with open(out_file, 'w+') as f:
+                    f.write(data)
+            except TypeError:  # Catch error if a StringIO object is passed
+                out_file.write(data)
+
+        return data  # we need to return. When we call recursively, we will have file argument just for first
 
 
 class TextWrapper:
