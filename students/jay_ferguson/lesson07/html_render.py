@@ -79,28 +79,6 @@ class Element:
         return data  # we need to return. When we call recursively, we will have file argument just for first
 
 
-# class A(Element):
-#     Tag = 'a'
-#
-#     def __init__(self, link, content):
-#         self.Content = content
-#         self.link = link
-#
-#     def render(self, out_file=None):
-#
-#         data = '<' + self.Tag + 'href="' + self.link + '">\n' + self.Content + '\n' + \
-#                  '</' + self.Tag + '>'
-#
-#         if out_file is None:
-#             pass
-#         else:
-#             try:
-#                 with open(out_file, 'w+') as f:
-#                     f.write(data)
-#             except TypeError:  # Catch error if a StringIO object is passed
-#                 out_file.write(data)
-
-
 class Body(Element):
     Tag = 'body'
 
@@ -122,12 +100,74 @@ class OneLineTag(Element):
     """
 
     def render(self, out_file=None):
-        data = super().render(out_file=None)
-        return data.replace('\n', '')
+        Content = ''
+        for _ in self.Content:
+            if _ is None:
+                pass
+            else:
+                try:
+                    Content += _.render()
+                except AttributeError:  # Detect base case for recursion
+                    Content += _
+
+        data = '<' + self.Tag + self.attributes + '>' + Content + \
+               '</' + self.Tag + '>'
+
+        if out_file is None:
+            pass
+        else:
+            try:
+                with open(out_file, 'w+') as f:
+                    f.write(data)
+            except TypeError:  # Catch error if a StringIO object is passed
+                out_file.write(data)
+
+        return data  # we need to return. When we call recursively, we will have file argument just for first
 
 
 class Title(OneLineTag):
     Tag = 'title'
+
+
+class A(OneLineTag):
+    Tag = 'a'
+
+    def __init__(self, link, content=None, **kwargs):
+        super().__init__(content, **kwargs)
+
+        if self._attributes != {}:  # Prepend a space if there are attributes to be had
+            link += ' '
+            self.link = link
+
+        else:
+            self.link = link
+
+
+    def render(self, out_file=None):
+        Content = ''
+        for _ in self.Content:
+            if _ is None:
+                pass
+            else:
+                try:
+                    Content += _.render()
+                except AttributeError:  # Detect base case for recursion
+                    Content += _
+
+        data = '<' + self.Tag + ' href=' + self.link + self.attributes + '>' + Content + \
+               '</' + self.Tag + '> '
+
+        if out_file is None:
+            pass
+        else:
+            try:
+                with open(out_file, 'w+') as f:
+                    f.write(data)
+            except TypeError:  # Catch error if a StringIO object is passed
+                out_file.write(data)
+
+        return data  # we need to return. When we call recursively, we will have file argument just for first
+
 
 
 class SelfClosingTag(OneLineTag):
@@ -162,6 +202,24 @@ class Hr(SelfClosingTag):
 
     def len(self):
         print(len(self.Content))
+
+
+class Ul(Element):
+    Tag = 'ul'
+
+
+class Li(OneLineTag):
+    Tag = 'li'
+
+
+class H(OneLineTag):
+    def __init__(self, heading_size, content=None, **kwargs):
+        super().__init__(content, **kwargs)
+
+        if heading_size > 6:
+            heading_size = 6
+
+        self.Tag = f'h{heading_size}'
 
 
 class TextWrapper:

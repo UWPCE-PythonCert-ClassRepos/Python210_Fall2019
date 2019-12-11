@@ -225,6 +225,13 @@ def test_self_closing():
     with pytest.raises(TypeError):
         page.append(Hr('Some content'))
 
+def test_links():
+    page = Html()
+    page.append(A("http://google.com", "link", style="text-align: center; font-style: oblique;"))
+    file_contents = render_result(page)
+    assert '<a href=http://google.com  style="text-align: center; font-style: oblique;" >' in file_contents
+
+
 
 # #####################
 # # indentation testing
