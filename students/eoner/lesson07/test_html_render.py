@@ -168,15 +168,13 @@ def test_sub_element():
     file_contents = render_result(page)
     print(file_contents) # so we can see it if the test fails
 
-    # note: The previous tests should make sure that the tags are getting
-    #       properly rendered, so we don't need to test that here.
     assert "some plain text" in file_contents
     assert "A simple paragraph of text" in file_contents
     assert "Some more plain text." in file_contents
     assert "some plain text" in file_contents
-    # but make sure the embedded element's tags get rendered!
     assert "<p>" in file_contents
     assert "</p>" in file_contents
+
 
 
 
@@ -187,7 +185,7 @@ def test_sub_element():
 
 # Add your tests here!
 
-def test_head_element():
+def test_Head():
     e = Head("this is a head element")
     e.append("and this is added to head")
 
@@ -199,16 +197,45 @@ def test_head_element():
     assert file_contents.startswith("<head>")
     assert file_contents.endswith("</head>")
 
-def test_OneLineTitle():
-    e = OneLineTitle("PythonClass - title example")
+def test_Title():
+    e = Title("PythonClass - title example")
 
     file_contents = render_result(e).strip()
 
     assert("PythonClass - title example") in file_contents
-
     assert file_contents.startswith("<title>")
     assert file_contents.endswith("</title>")
+    assert "\n" not in file_contents
 
+def test_One_LinTag_Append():
+    e = Title("PythonClass - title example")
+    with pytest.raises(NotImplementedError):
+        e.append("append this")
+
+    file_contents = render_result(e).strip()
+    assert("PythonClass - title example") in file_contents
+    print(file_contents)
+
+def test_attributes():
+    e = P("A paragraph of text", style="text-align: center", id="intro")
+
+    file_contents = render_result(e).strip()
+    print(file_contents)  # so we can see it if the test fails
+
+    # note: The previous tests should make sure that the tags are getting
+    #       properly rendered, so we don't need to test that here.
+    #       so using only a "P" tag is fine
+    assert "A paragraph of text" in file_contents
+    # but make sure the embedded element's tags get rendered!
+    # first test the end tag is there -- same as always:
+    assert file_contents.endswith("</p>")
+
+    # but now the opening tag is far more complex
+    # but it starts the same:
+    assert file_contents.startswith("<p")
+    assert 'style="text-align: center"' in file_contents
+    assert 'id="intro"' in file_contents
+    #assert False
 
 # #####################
 # # indentation testing
