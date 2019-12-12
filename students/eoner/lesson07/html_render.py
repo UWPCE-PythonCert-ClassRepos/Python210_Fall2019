@@ -12,10 +12,10 @@ class Element(object):
 
     def __init__(self, content=None, **kwargs):
         self.contents = [content]
-        self.attributes = []
+        self.attributes = ""
         # create a string with kwargs
         for key, value in kwargs.items():
-            self.attributes.append(' {}="{}"'.format(key, value))
+            self.attributes+=(' {}="{}",'.format(key, value))
 
     def append(self, new_content):
         self.contents.append(new_content)
@@ -24,9 +24,8 @@ class Element(object):
         # loop the content list
         # add tags to beginning / end
         open_tag = ["<{}".format(self.tag)]
-        #if any attributes exist add them   
         if len(self.attributes) >0:
-            open_tag.append(str(self.attributes))
+            open_tag.append(self.attributes[:-1])
         open_tag.append(">\n")
         out_file.write("".join(open_tag))
 
@@ -66,3 +65,21 @@ class OneLineTag(Element):
 
 class Title(OneLineTag):
     tag = "title"
+
+class SelfClosingTag(Element):
+    def render(self, out_file):
+        # loop the content list
+        # add tags to beginning / end
+        open_tag = ["<{}".format(self.tag)]
+        out_file.write("".join(open_tag))        
+        for content in self.contents:
+            try:
+                if content is not None:
+                    content.render(out_file)
+            except AttributeError:
+                out_file.write(content)
+        out_file.write(" />\n")
+
+class Hr(SelfClosingTag):
+    tag = "hr"
+    #Hr(width=400)

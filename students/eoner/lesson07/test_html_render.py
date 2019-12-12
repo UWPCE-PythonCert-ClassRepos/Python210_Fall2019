@@ -207,7 +207,7 @@ def test_Title():
     assert file_contents.endswith("</title>")
     assert "\n" not in file_contents
 
-def test_One_LinTag_Append():
+def test_One_LineTag_Append():
     e = Title("PythonClass - title example")
     with pytest.raises(NotImplementedError):
         e.append("append this")
@@ -235,8 +235,24 @@ def test_attributes():
     assert file_contents.startswith("<p")
     assert 'style="text-align: center"' in file_contents
     assert 'id="intro"' in file_contents
-    #assert False
+    assert file_contents[:-1].index(">") > file_contents.index('id="intro"')
+    assert file_contents[:file_contents.index(">")].count(" ") == 3
 
+def test_hr():
+    """a simple horizontal rule with no attributes"""
+    hr = Hr()
+    file_contents = render_result(hr)
+    print(file_contents)
+    assert file_contents == '<hr />\n'
+
+
+def test_hr_attr():
+    """a horizontal rule with an attribute"""
+    hr = Hr(width=400)
+    file_contents = render_result(hr)
+    print(file_contents)
+    assert file_contents == '<hr width="400" />\n'
+    assert False
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
