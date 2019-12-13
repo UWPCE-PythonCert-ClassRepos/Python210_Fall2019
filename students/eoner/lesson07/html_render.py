@@ -66,6 +66,13 @@ class Title(OneLineTag):
     tag = "title"
 
 class SelfClosingTag(Element):
+
+    #try to catch any content added
+    def __init__(self, content=None, **kwargs):
+        if content is not None:
+            raise TypeError("SelfClosingTag can not contain any content")
+        super().__init__(content=content, **kwargs)
+
     def render(self, out_file):
         # loop the content list
         # add tags to beginning / end
@@ -73,12 +80,6 @@ class SelfClosingTag(Element):
         if self.attributes!={}:
             for k, v in self.attributes.items():
                 open_tag.append(' {}="{}"'.format(k, v))
-        for content in self.contents:
-            try:
-                if content is not None:
-                    raise TypeError
-            except AttributeError:
-                out_file.write(content)
         out_file.write("".join(open_tag))
         out_file.write(" />\n")
     
