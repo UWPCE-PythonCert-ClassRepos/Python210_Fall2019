@@ -273,7 +273,7 @@ def test_A_attr():
     a = A("http://somepage", "link")
     file_contents = render_result(a)
     print(file_contents)
-    assert file_contents == '<a href>"http://somepage", "link"</a>'
+    assert file_contents == '<a href="http://somepage">link</a>'
 
     # assert False
 # #####################
