@@ -1,4 +1,4 @@
-#!/usr/bin/python
+s#!/usr/bin/python
 
 """
 An exercise in playing with Exceptions.

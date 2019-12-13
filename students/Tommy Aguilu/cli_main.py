@@ -13,7 +13,6 @@ def create_donor_data():
     d2.new_donation(23444)
     a = donor_collection(d1.return_list())
     a.add_donor(d2.return_list())
-    #print(a.donor_list)
     return a
 #initilize donor data as a
 a = create_donor_data()
@@ -38,3 +37,4 @@ while sentinal == True:
         tests()
     elif choice == "4":
         break
+
