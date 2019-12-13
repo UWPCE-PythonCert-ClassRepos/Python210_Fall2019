@@ -12,10 +12,7 @@ class Element(object):
 
     def __init__(self, content=None, **kwargs):
         self.contents = [content]
-        self.attributes = ""
-        # create a string with kwargs
-        for key, value in kwargs.items():
-            self.attributes+=(' {}="{}",'.format(key, value))
+        self.attributes = kwargs
 
     def append(self, new_content):
         self.contents.append(new_content)
@@ -24,8 +21,10 @@ class Element(object):
         # loop the content list
         # add tags to beginning / end
         open_tag = ["<{}".format(self.tag)]
-        if len(self.attributes) >0:
-            open_tag.append(self.attributes[:-1])
+        #if any kwargs, add them in to starting tag
+        if self.attributes!={}:
+            for k, v in self.attributes.items():
+                open_tag.append(' {}="{}"'.format(k, v))
         open_tag.append(">\n")
         out_file.write("".join(open_tag))
 
@@ -71,15 +70,24 @@ class SelfClosingTag(Element):
         # loop the content list
         # add tags to beginning / end
         open_tag = ["<{}".format(self.tag)]
-        out_file.write("".join(open_tag))        
+        if self.attributes!={}:
+            for k, v in self.attributes.items():
+                open_tag.append(' {}="{}"'.format(k, v))
         for content in self.contents:
             try:
                 if content is not None:
-                    content.render(out_file)
+                    raise TypeError
             except AttributeError:
                 out_file.write(content)
+        out_file.write("".join(open_tag))
         out_file.write(" />\n")
+    
+    def append(self, content):
+        raise TypeError
 
 class Hr(SelfClosingTag):
     tag = "hr"
     #Hr(width=400)
+
+class Br(SelfClosingTag):
+    tag = "br"
