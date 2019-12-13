@@ -93,10 +93,30 @@ class SelfClosingTag(Element):
 
 class Hr(SelfClosingTag):
     tag = "hr"
-    #Hr(width=400)
 
 class Br(SelfClosingTag):
     tag = "br"
 
 class A(OneLineTag):
     tag = "a"
+    def __init__(self, *args):
+        self.attributes = args
+        
+    def render(self, out_file):
+    # loop the content list
+    # add tags to beginning / end
+        out_file.write("<{} href>".format(self.tag))
+        for arg in self.attributes:
+            out_file.write('"{}"'.format(str(arg)))
+            if self.attributes.index(arg)< (len(self.attributes)-1):
+                out_file.write(', ')
+        out_file.write("</{}>".format(self.tag))
+
+class H(A):
+    tag = "h"
+
+class Ul(SelfClosingTag):
+    tag = "ul"
+
+class Li(Element):
+    tag = "li"
