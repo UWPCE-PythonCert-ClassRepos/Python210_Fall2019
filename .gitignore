@@ -111,3 +111,6 @@ students/joejohnsto/lesson04/new_students.txt
 
 # Class files for Canvas
 .zip
+
+# Generated files from HTML Renderer
+.html
