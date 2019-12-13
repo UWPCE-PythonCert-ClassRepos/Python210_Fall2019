@@ -269,12 +269,17 @@ def test_append_content_in_br():
         br = Br()
         br.append("some content")
 
+def test_A_attr():
+    a = A("http://somepage", "link")
+    file_contents = render_result(a)
+    print(file_contents)
+    assert file_contents == '<a>"http://somepage", "link"</a>\n'
+
     # assert False
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
 # #####################
-
 
 # def test_indent():
 #     """

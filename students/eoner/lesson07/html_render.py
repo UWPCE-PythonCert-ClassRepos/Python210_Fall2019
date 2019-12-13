@@ -55,7 +55,12 @@ class OneLineTag(Element):
     # loop the content list
     # add tags to beginning / end
         out_file.write("<{}>".format(self.tag))
-        out_file.write(self.contents[0])
+        for content in self.contents:
+            try:
+                if content is not None:
+                    out_file.write(str(content))
+            except AttributeError:
+                out_file.write(content)
         out_file.write("</{}>\n".format(self.tag))
     
     # make sure you can't append
@@ -92,3 +97,6 @@ class Hr(SelfClosingTag):
 
 class Br(SelfClosingTag):
     tag = "br"
+
+class A(OneLineTag):
+    tag = "a"

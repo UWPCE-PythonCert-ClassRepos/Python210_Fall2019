@@ -145,7 +145,7 @@ body.append(hr.P("Here is a paragraph of text -- there could be more of them, "
 body.append(hr.Hr())
 
 body.append("And this is a ")
-body.append( hr.A("http://google.com", "link") )
+body.append(hr.A("http://google.com", "link"))
 body.append("to google")
 
 page.append(body)
