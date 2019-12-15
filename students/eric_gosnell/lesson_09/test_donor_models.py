@@ -89,7 +89,7 @@ def test_charity_donor_list():
 
     assert a_charity.donor_list == [Donor("J Donor"),
                                     Donor("K Donor"),
-                                    Donor("L Donor)")]
+                                    Donor("L Donor")]
 
 
 def sort_key(donor):
