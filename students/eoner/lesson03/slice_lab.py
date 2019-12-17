@@ -4,8 +4,6 @@
 # with the elements reversed (just with slicing).
 # with the last third, then first third, then the middle third in the new order.
 
-
-
 # with the first and last items exchanged.
 def exchange_first_last(seq):
     return seq[-1:] + seq[1:-1] + seq[0:1]
@@ -56,8 +54,5 @@ if __name__ == "__main__":
     assert last_first_middle_third("abcdefghjkl") == "jklabcdefgh"
     assert last_first_middle_third((1,2,3,4,5,6,7,8,9,10)) == (8, 9, 10, 1, 2, 3, 4, 5, 6, 7)
     assert last_first_middle_third([1,2,3,4,5,6,7,8,9,10]) == [8, 9, 10, 1, 2, 3, 4, 5, 6, 7]
-
-
-
 
     print("Tests Passed!!!")
