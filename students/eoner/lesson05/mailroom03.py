@@ -14,12 +14,8 @@ def create_report():
     print(header)
     print("_"*len(header))
     
-    for k, v in donors.items(): #use keys?
-        # print(k,v,len(v),sum(v), (sum(v)/len(v)))
-        # Need to sort!!!!!
-        # Add $ symbol!
-        name, total, numGifts, AvgGift = (k, sum(v), len(v), (sum(v)/len(v)))
-        print(f'{name:20} {total:{17}.2f} {numGifts:15} {AvgGift:{20}.2f}')
+    #more comprehension
+    [print(f'{k:20} {sum(v):{17}.2f} {len(v):15} {(sum(v)/len(v)):{20}.2f}') for k,v in donors.items()]
     print("\n")
     entry_menu()
 
@@ -69,9 +65,8 @@ def thanks():
 
 #call each donor in dictionary then send thank you letter with last donation
 def thanks_all():
-
-    for k, v in donors.items():
-        create_thankYou(k,v[-1])
+    #more comprehension
+    [create_thankYou(k,v[-1]) for k, v in donors.items()]
     
     print('\n')    
     entry_menu()
