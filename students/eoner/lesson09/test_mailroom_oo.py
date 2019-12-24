@@ -1,55 +1,34 @@
-import mailroom04 as mr
-import os
+import mailroom_oo_donor_models as mr_class
 
-#initiate donor list for test
-mr.donors= {'FirstName LastName': [100, 2500]}
-letter_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Sed viverra tellus in hac habitasse platea dictumst vestibulum. Duis at tellus at urna. Urna neque viverra justo nec.\n Rutrum tellus pellentesque eu tincidunt. Felis eget nunc lobortis mattis aliquam faucibus purus."
+#Test donor class
 
+def test_donor_init_name_only():
+    joe = mr_class.donor("name_abcd")
+    assert str(joe) == "name_abcd, None"
 
+def test_donor_init_name_donations():
+    joe_two = mr_class.donor("name_abcde",[1,2,3,4])
+    assert str(joe_two) == "name_abcde, [1, 2, 3, 4]"
 
-def test_create_thankYou():
-    output=mr.create_thankYou("NAME", 1234)
-    compare="Dear NAME,\n \n Thanks for the $1234.00 sucker.\n\n                          -Your Fave Charity"
-    assert output == compare
+def test_add_donation_no_donations():
+    joe = mr_class.donor("name_abcd")
+    joe.add_donation(5)
+    assert str(joe) == "name_abcd, [5]"
+    
+def test_add_donation_init_donations():
+    joe_two = mr_class.donor("name_abcde",[1,2,3,4])
+    joe_two.add_donation(5)
+    assert str(joe_two) == "name_abcde, [1, 2, 3, 4, 5]"    
 
-def test_create_report():
-    output=mr.create_report()
-    report_expected = ['FirstName LastName             2600.00               2              1300.00']
-    assert output == report_expected
+def test_average_donation():
+    joe_two = mr_class.donor("name_abcde",[1,2,3,4])
+    assert joe_two.average_donation() == 2.5
 
-def test_thanks_all():
-    output=mr.thanks_all()
-    output_expected = ['Dear FirstName LastName,\n \n Thanks for the $2500.00 sucker.\n\n                          -Your Fave Charity']
-    assert output == output_expected
+def test_total_donation():
+    joe_two = mr_class.donor("name_abcde",[1,2,3,4])
+    assert joe_two.total_donations() == 10    
 
-#check if the TY_LETTERS folder gets created
-def test_write_file_folder_creation():
-    #construct the path
-    file_path = os.getcwd() + "/TY_LETTERS"
-    file_name = "TEST_FILENAME_000_thank_you_letter.txt"
-    os.system("rm -rf {}".format(file_path))
-    #create file
-    mr.write_file("TEST_FILENAME_000","content")
-    #check if file xists
-    assert os.path.isfile(file_path+"/"+file_name)
-
-#check if another file is created
-def test_write_file_creation():
-    #construct the path
-    file_path = os.getcwd() + "/TY_LETTERS"
-    file_name = "TEST_FILENAME_001_thank_you_letter.txt"
-    #create file
-    mr.write_file("TEST_FILENAME_001",letter_content)
-    #check if file xists
-    assert os.path.isfile(file_path+"/"+file_name)
-
-#check the content of the file from the last test
-def test_write_file_content():
-    #construct the path
-    file_path = os.getcwd() + "/TY_LETTERS"
-    file_name = "TEST_FILENAME_001_thank_you_letter.txt"
-    full_path = file_path + "/" + file_name
-    content = open(full_path, 'r').read()
-    #check if file xists
-    assert content == letter_content
-
+def test_last_donation_email():
+    joe_two = mr_class.donor("name_abcde",[1,2,3,4])
+    assert joe_two.send_last_donation_email()   == ('name_abcde',
+                                                    'Heyyyy... name_abcde,\n\nThanks for the $4.00 sucka!\nKeep sending that money, though\n                  OK, BAIIII!')   
