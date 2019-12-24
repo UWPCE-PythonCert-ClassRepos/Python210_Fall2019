@@ -26,7 +26,7 @@ class donor():
         return sum(self.donations)
 
     def send_last_donation_email(self):
-        "returns a thank you string with donors name and last donation"
+        """returns a thank you string with donors name and last donation"""
         if type(self.donations) is not list:
             raise Exception( "no donations in the list")
         else:
@@ -38,3 +38,35 @@ class donor():
             output = ty_body.format(**ty_dic)
             return self.name,output
 
+class charity():
+    """ Chairty Object keeps track of donor objects ina dictionary"""
+    
+    def __init__(self,Name):
+        """A charity that initiliazes with name and empty donor dic"""
+        self.CharityName=Name
+        self.Donors={}
+
+    def __repr__(self):
+        """returns representation of the donor name and list of donations"""
+        return self.CharityName
+
+    def add_donor(self, DonorName, DonationList):
+        """add the donor to dictionary to track, create the donor via donor class"""
+        self.Donors[DonorName] = donor(DonorName, DonationList)
+
+    def list_donors(self):
+        """return a list of donors"""
+        return list(self.Donors.keys())
+    
+    def create_report(self):
+        header = f'{"Donor Name":25}{"| Total Given":15}{"| Num Gifts":>15}{ "| Average Gift":>20}'
+        seperator = "_"*len(header)
+        donor_list= [(f'{k:20} {sum(v):{17}.2f} {len(v):15} {(sum(v)/len(v)):{20}.2f}') for k,v in self.Donors.items()]
+        return (header,seperator,donor_list)
+    
+
+
+#test
+NewCharity=charity("Gates")
+NewCharity.add_donor("DonaldDuck",[10,20,30])
+NewCharity.add_donor("Mickey",[40])
