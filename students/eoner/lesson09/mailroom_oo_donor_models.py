@@ -59,12 +59,20 @@ class charity():
         return list(self.Donors.keys())
     
     def create_report(self):
+        """Create a report for donations, return data as a list"""
+        #sort db in order by total donation
+        db = sorted(self.Donors.items(), key=lambda x: x[1].total_donations(), reverse=True)
+        # build header line for report
         header = f'{"Donor Name":25}{"| Total Given":15}{"| Num Gifts":>15}{ "| Average Gift":>20}'
-        seperator = "_"*len(header)
-        donor_list= [(f'{k:20} {sum(v):{17}.2f} {len(v):15} {(sum(v)/len(v)):{20}.2f}') for k,v in self.Donors.items()]
-        return (header,seperator,donor_list)
-    
+        underline = '-'*len(header)
+        data = [(f'{(db[i][1].name):20} {(db[i][1].total_donations()):{17}.2f} {(len(db[i][1].donations)):15} {(db[i][1].average_donation()):{20}.2f}')for i in range(len(db))]  
+        return (header,underline,data)
 
+    def send_letter_all(self):
+        """call the donor class method to write each person a letter"""
+        #this seems easier to itate over for now"
+        db = sorted(self.Donors.items(), key=lambda x: x[1].total_donations(), reverse=True)
+        return [db[i][1].send_last_donation_email()for i in range(len(db))]  
 
 #test
 NewCharity=charity("Gates")
