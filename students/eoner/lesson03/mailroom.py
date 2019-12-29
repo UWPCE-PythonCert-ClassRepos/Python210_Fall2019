@@ -29,7 +29,7 @@ def entry_menu():
         print("reports selected")
         create_report(donors)
     elif top_menu == "q":
-        break
+        return exit
     else:
         print("please enter a valid input")
         entry_menu()
